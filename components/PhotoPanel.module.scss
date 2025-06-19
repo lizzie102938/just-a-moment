@@ -1,0 +1,55 @@
+// @use '../../styles/variables.scss' as *;
+
+.panel {
+  padding: 1.5rem;
+  background-color: #fafdd6;
+  font-family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif';
+  border-top: 2px solid #e4e9be;
+  overflow-y: auto;
+}
+
+.heading {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  color: darken(#a2b38b, 20%);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.card {
+  width: 200px;
+  background-color: #e4e9be;
+  border: 1px solid lighten(#e4e9be, 10%);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #fafdd6;
+}
+
+.caption {
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  color: darken(#a2b38b, 15%);
+  text-align: center;
+  background-color: lighten(#e4e9be, 5%);
+}

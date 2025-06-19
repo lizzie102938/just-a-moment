@@ -17,11 +17,15 @@ export default function Map({ onMapClick }: MapProps) {
   }
 
   return (
-    <MapContainer center={[20, 0]} zoom={2} style={{ height: '60vh', width: '100%' }}>
-     <TileLayer
-  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  attribution='© OpenStreetMap contributors'
-/>
+    <MapContainer
+      center={[20, 0]}
+      zoom={2}
+      style={{ height: '60vh', width: '100%' }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution="© OpenStreetMap contributors"
+      />
 
       <MapClickHandler />
     </MapContainer>

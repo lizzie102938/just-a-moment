@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Home.module.scss';
+import { Sidebar } from '@/components/Layout';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 import { PhotoPanel } from '../components/PhotoPanel';
@@ -30,12 +31,18 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>Just a Moment</h1>
-      <Map onMapClick={handleMapClick} />
-      {location && (
-        <PhotoPanel photos={photos} location={location} placeName={placeName} />
-      )}
+    <div className={styles.sidebarAppFlex}>
+      <Sidebar />
+      <div className={styles.mapContainer}>
+        <Map onMapClick={handleMapClick} />
+        {location && (
+          <PhotoPanel
+            photos={photos}
+            location={location}
+            placeName={placeName}
+          />
+        )}
+      </div>
     </div>
   );
 }
