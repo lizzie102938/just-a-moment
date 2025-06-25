@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styles from '../styles/Home.module.scss';
-import { Sidebar } from '@/components/Layout';
+import { Topbar } from '@/components/Layout';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 import { PhotoPanel } from '../components/PhotoPanel';
@@ -29,20 +29,44 @@ export default function Home() {
       console.error('Fetch error:', err);
     }
   };
+  console.log('Photos passed to PhotoPanel:', photos);
+
+  const handleSearch = async (place: string) => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          place
+        )}`,
+        {
+          headers: {
+            'User-Agent': 'just-one-moment (lizzielerwill@gmail.com)',
+          },
+        }
+      );
+      const results = await res.json();
+      if (results.length > 0) {
+        const { lat, lon } = results[0];
+        handleMapClick(parseFloat(lat), parseFloat(lon));
+      } else {
+        alert('Location not found.');
+      }
+    } catch (err) {
+      console.error('Geocoding failed:', err);
+    }
+  };
 
   return (
-    <div className={styles.sidebarAppFlex}>
-      <Sidebar />
-      <div className={styles.mapContainer}>
-        <Map onMapClick={handleMapClick} />
-        {location && (
-          <PhotoPanel
-            photos={photos}
-            location={location}
-            placeName={placeName}
-          />
-        )}
-      </div>
+    <div>
+      <Topbar onSearch={handleSearch} />
+      <Map onMapClick={handleMapClick} />
+      {location && (
+        <PhotoPanel
+          photos={photos}
+          location={location}
+          placeName={placeName}
+          onClose={() => setLocation(null)}
+        />
+      )}
     </div>
   );
 }

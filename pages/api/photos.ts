@@ -71,6 +71,8 @@ export default async function handler(
 
     const data = await response.json();
 
+    console.log(data, 'data');
+
     if (!data.results) {
       return res
         .status(500)
@@ -80,8 +82,9 @@ export default async function handler(
     const photos = data.results.map((photo: any) => ({
       title: photo.alt_description || 'Untitled',
       url: photo.urls.small,
-      photographer: photo.user.name,
+      // photographer: photo.user.name,
       link: photo.links.html,
+      date: photo.created_at,
     }));
 
     res.status(200).json({ photos, placeName });
