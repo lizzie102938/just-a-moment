@@ -13,3 +13,5 @@ There will also be a fun feature where users will be shown a random photo of a p
 It will be deployed on Vercel 🚀
 
 Happy travels!
+
+<img width="1435" alt="Screenshot 2025-06-26 at 23 44 08" src="https://github.com/user-attachments/assets/7c3ed0ec-11bf-4091-a74e-1d5c82c45793" />
