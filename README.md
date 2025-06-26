@@ -13,3 +13,5 @@ There will also be a fun feature where users will be shown a random photo of a p
 It will be deployed on Vercel 🚀
 
 Happy travels!
+
+![app screenshot](https://file%2B.vscode-resource.vscode-cdn.net/Users/lizzie/just-one-moment/public/oneMoment.png?version%3D1750975857666)
