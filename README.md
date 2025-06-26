@@ -14,5 +14,4 @@ It will be deployed on Vercel 🚀
 
 Happy travels!
 
-
-<img width="1435" alt="Screenshot 2025-06-26 at 23 44 08" src="https://github.com/user-attachments/assets/9e664a97-2409-4669-b417-094f18d988b9" />
+![Screenshot 2025-06-27 at 00 17 17](https://github.com/user-attachments/assets/70dcd537-9609-49c3-be4f-418725b0a67c)
