@@ -19,7 +19,6 @@ const Topbar = ({ onSearch }: TopbarProps) => {
       gap={32}
       p={40}
     >
-      {/* <BucketIcon w={24} h={24} /> */}
       <Tooltip
         c={theme.colors.gray[9]}
         label="See Bucket List"
@@ -46,6 +45,8 @@ const Topbar = ({ onSearch }: TopbarProps) => {
 
         <Switch label="Photos" />
         <Switch label="Food" />
+        <Switch label="News" />
+        <Switch label="Radio" />
       </Flex>
     </Flex>
   );
