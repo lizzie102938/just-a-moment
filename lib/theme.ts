@@ -3,8 +3,10 @@ import { MantineThemeOverride } from '@mantine/core';
 
 export const theme: MantineThemeOverride = {
   fontFamily: 'Roboto, sans-serif',
-  primaryColor: '#e1e0f9', // Use your brand color
+  primaryColor: 'primaryColor',
+
   colors: {
+    // primaryColor: ['#e1e0f9'],
     indigo: [
       '#e1e0f9',
       '#dbe4ff',
@@ -16,6 +18,30 @@ export const theme: MantineThemeOverride = {
       '#4263eb',
       '#3b5bdb',
       '#364fc7',
+    ],
+    green: [
+      '#e9ecd4',
+      '#d4e1c2',
+      '#c3d6a3',
+      '#b0c982',
+      '#9eb866',
+      '#808000',
+      '#677b4d',
+      '#4b5320',
+      '#3a4b22',
+      '#2c3519',
+    ],
+    gray: [
+      '#f8f9fa',
+      '#f1f3f5',
+      '#e9ecef',
+      '#dee2e6',
+      '#ced4da',
+      '#adb5bd',
+      '#868e96',
+      '#495057',
+      '#343a40',
+      '#212529',
     ],
   },
   defaultRadius: 'md',

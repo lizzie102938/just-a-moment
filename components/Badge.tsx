@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Badge as MantineBadge, TextInput, Group } from '@mantine/core';
 import classes from './Badge.module.scss';
-import { theme } from '@/lib/theme';
+
+import { useMantineTheme } from '@mantine/core';
 
 type BadgeProps = {
   label: string;
   hasInput?: boolean;
   onSearch?: (query: string) => void;
+  type: 'simple' | 'input';
 };
 
-const Badge = ({ label, hasInput = false, onSearch }: BadgeProps) => {
+const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
   const [inputValue, setInputValue] = useState('');
+  const theme = useMantineTheme();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -23,15 +26,15 @@ const Badge = ({ label, hasInput = false, onSearch }: BadgeProps) => {
 
   return (
     <MantineBadge
-      h={50}
+      h={type === 'simple' ? 35 : 50}
       ta="center"
       mt={0}
-      size="lg"
-      radius="sm"
+      size={type === 'simple' ? 'lg' : 'md'}
+      radius={type === 'simple' ? 'sm' : 'md'}
       variant="light"
-      bg={theme.primaryColor}
-      c="gray"
-      fw={'normal'}
+      bg={theme.colors.indigo[3]}
+      c={theme.colors.gray[9]}
+      fw={'bold'}
       className={classes.badgeText}
     >
       <Group gap="xs" align="center">
@@ -43,7 +46,7 @@ const Badge = ({ label, hasInput = false, onSearch }: BadgeProps) => {
             value={inputValue}
             onChange={(e) => setInputValue(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
-            placeholder="e.g. Paris"
+            placeholder="e.g. Paris or Eiffel Tower"
           />
         )}
       </Group>

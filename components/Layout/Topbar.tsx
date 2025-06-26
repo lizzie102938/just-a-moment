@@ -1,31 +1,52 @@
-import { Flex, Switch } from '@mantine/core';
-import Badge from '@/components/Badge'; // Adjust the import path as needed
-import { theme } from '@/lib/theme';
+import { Flex, useMantineTheme, Tooltip } from '@mantine/core';
+import Switch from '@/components/Switch';
+import Badge from '@/components/Badge';
+import styles from './Topbar.module.scss';
 
 type TopbarProps = {
   onSearch: (query: string) => void;
 };
 
 const Topbar = ({ onSearch }: TopbarProps) => {
+  const theme = useMantineTheme();
+
   return (
     <Flex
-      align={'center'}
-      pl={16}
-      justify={'space-around'}
       h={'6rem'}
       w={'100%'}
-      bg={'white'}
+      bg={theme.colors.gray[9]}
+      align={'center'}
+      gap={32}
+      p={40}
     >
-      <Badge
-        label={'Click somewhere on the map or enter location here:'}
-        hasInput={true}
-        onSearch={onSearch}
-      />
-      {/* <Badge label={"See what's there"} /> */}
-      {/* <Badge label={'Photos, music, culture'} /> */}
-      <Switch label={'Photos'} color={theme.primaryColor} />
-      <Switch label={'Food'} color={theme.primaryColor} />
-      <Switch label={'Events'} color={theme.primaryColor} />
+      {/* <BucketIcon w={24} h={24} /> */}
+      <Tooltip
+        c={theme.colors.gray[9]}
+        label="See Bucket List"
+        color={theme.colors.indigo[3]}
+        withArrow
+        zIndex={1000}
+      >
+        <img
+          src="/bucket.svg"
+          alt="Bucket Icon"
+          height={50}
+          className={styles.bucket}
+        />
+      </Tooltip>
+      <Flex justify={'space-between'} align={'center'} pl={16} gap={48}>
+        <Badge
+          type={'input'}
+          label={
+            'Click somewhere on the map or type a location or landmark here:'
+          }
+          hasInput={true}
+          onSearch={onSearch}
+        />
+
+        <Switch label="Photos" />
+        <Switch label="Food" />
+      </Flex>
     </Flex>
   );
 };

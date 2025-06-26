@@ -1,8 +1,15 @@
 // components/PhotoPanel.tsx
 import styles from './PhotoPanel.module.scss';
 import { format } from 'date-fns';
-import { Modal, NavLink, Text, Box } from '@mantine/core';
-import { theme } from '@/lib/theme'; // Adjust the import path as needed
+import Badge from '@/components/Badge';
+import {
+  Modal,
+  NavLink,
+  Text,
+  Box,
+  useMantineTheme,
+  Flex,
+} from '@mantine/core';
 
 type Photo = {
   url: string;
@@ -29,13 +36,18 @@ export function PhotoPanel({
   placeName,
   onClose,
 }: PhotoPanelProps) {
+  const theme = useMantineTheme();
+
   return (
     <Modal opened={!!location} onClose={onClose} zIndex={1000} size={'auto'}>
       <div className={styles.panel}>
-        <h2 className={styles.heading}>
-          Photos of ({location.lat.toFixed(2)}, {location.lng.toFixed(2)})
-          {placeName ? ` – ${placeName}` : ''}
-        </h2>
+        <Flex align="center" gap={25}>
+          <h2 className={styles.heading}>
+            Photos of ({location.lat.toFixed(2)}, {location.lng.toFixed(2)})
+            {placeName ? ` – ${placeName}` : ''}
+          </h2>
+          <Badge label={'Add to my Bucket List'} type={'simple'} />
+        </Flex>
         <Box className={styles.grid}>
           {photos.map((photo) => {
             console.log('Photo date:', photo.date);
@@ -43,20 +55,22 @@ export function PhotoPanel({
               <Box
                 key={photo.url + photo.title}
                 className={styles.card}
-                bg={theme.primaryColor}
+                w={200}
+                bg={theme.colors.indigo[1]}
               >
                 <img
                   src={photo.url}
                   alt={photo.title}
                   className={styles.image}
                 />
-                {/* <Text className={styles.caption}>{photo.title}</Text> */}
+
                 <Text ta={'center'} size={'sm'} c={''} pt={4}>
                   {' '}
                   {formatDate(photo.date)}
                 </Text>
 
                 <NavLink
+                  className={styles.link}
                   ta={'center'}
                   href={photo.url}
                   target="_blank"
