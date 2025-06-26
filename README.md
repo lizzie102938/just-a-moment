@@ -14,4 +14,4 @@ It will be deployed on Vercel 🚀
 
 Happy travels!
 
-![app screenshot](https://file%2B.vscode-resource.vscode-cdn.net/Users/lizzie/just-one-moment/public/oneMoment.png?version%3D1750975857666)
+<img width="1435" alt="Screenshot 2025-06-26 at 23 44 08" src="https://github.com/user-attachments/assets/7c3ed0ec-11bf-4091-a74e-1d5c82c45793" />
