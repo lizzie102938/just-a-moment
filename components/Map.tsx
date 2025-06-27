@@ -20,30 +20,20 @@ export default function Map({ onMapClick }: MapProps) {
     <MapContainer
       center={[20, 0]}
       zoom={2}
-      minZoom={3.5} // 👈 Prevents zooming out too far
-      maxZoom={12} // Optional: caps the max zoom
+      minZoom={3.5}
+      maxZoom={12}
       maxBounds={[
         [-60, -180],
         [85, 180],
       ]}
-      // Near-global vertical and horizontal
-      maxBoundsViscosity={0.05} // Very soft boundaries
+      maxBoundsViscosity={0.05}
       worldCopyJump={true}
       style={{ height: '100vh', width: '100%' }}
     >
-      {/* <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="© OpenStreetMap contributors"
-      /> */}
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution='© <a href="https://carto.com/">Carto</a>'
       />
-
-      {/* <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        attribution='© <a href="https://carto.com/">Carto</a>'
-      /> */}
 
       <MapClickHandler />
     </MapContainer>

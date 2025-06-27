@@ -7,6 +7,8 @@
   font-family: Arial, Helvetica, sans-serif;
   //   border-top: 2px solid #e4e9be;
   overflow-y: auto;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
 }
 
 .heading {
@@ -15,9 +17,10 @@
 }
 
 .grid {
+  padding-top: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: flex-start;
 }
 

@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { Badge as MantineBadge, TextInput, Group } from '@mantine/core';
+import {
+  Badge as MantineBadge,
+  TextInput,
+  Group,
+  useMantineTheme,
+} from '@mantine/core';
 import classes from './Badge.module.scss';
-
-import { useMantineTheme } from '@mantine/core';
+import classNames from 'classnames';
 
 type BadgeProps = {
   label: string;
@@ -25,6 +29,7 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
   };
 
   return (
+    // add min width for badge to stop overspill
     <MantineBadge
       h={type === 'simple' ? 35 : 50}
       ta="center"
@@ -35,7 +40,9 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
       bg={theme.colors.indigo[3]}
       c={theme.colors.gray[9]}
       fw={'bold'}
-      className={classes.badgeText}
+      className={classNames(classes.badge, {
+        [classes.inputBadge]: type === 'input',
+      })}
     >
       <Group gap="xs" align="center">
         {label}

@@ -2,12 +2,16 @@ import { useMantineTheme, Switch as MantineSwitch } from '@mantine/core';
 
 interface SwitchProps {
   label: string;
+  checked?: boolean;
+  onCheckChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Switch = ({ label }: SwitchProps) => {
+const Switch = ({ label, checked, onCheckChange }: SwitchProps) => {
   const theme = useMantineTheme();
   return (
     <MantineSwitch
+      onChange={onCheckChange}
+      checked={checked}
       label={label}
       color={theme.colors.indigo[3]}
       size="md"

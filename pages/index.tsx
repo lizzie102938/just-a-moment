@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import styles from '../styles/Home.module.scss';
 import { Topbar } from '@/components/Layout';
 
-const Map = dynamic(() => import('../components/Map'), { ssr: false });
+const MapItem = dynamic(() => import('../components/Map'), { ssr: false });
 import { PhotoPanel } from '../components/PhotoPanel';
 
 export default function Home() {
@@ -56,9 +55,10 @@ export default function Home() {
   };
 
   return (
+    // pass the correct toggles here in props and render acccordingly
     <div>
       <Topbar onSearch={handleSearch} />
-      <Map onMapClick={handleMapClick} />
+      <MapItem onMapClick={handleMapClick} />
       {location && (
         <PhotoPanel
           photos={photos}

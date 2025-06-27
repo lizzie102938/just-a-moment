@@ -2,6 +2,7 @@ import { Flex, useMantineTheme, Tooltip } from '@mantine/core';
 import Switch from '@/components/Switch';
 import Badge from '@/components/Badge';
 import styles from './Topbar.module.scss';
+import { useState } from 'react';
 
 type TopbarProps = {
   onSearch: (query: string) => void;
@@ -9,6 +10,13 @@ type TopbarProps = {
 
 const Topbar = ({ onSearch }: TopbarProps) => {
   const theme = useMantineTheme();
+  const [photosChecked, setPhotosChecked] = useState(false);
+  const [foodChecked, setFoodChecked] = useState(false);
+  const [newsChecked, setNewsChecked] = useState(false);
+  const [radioChecked, setRadioChecked] = useState(false);
+
+  console.log(photosChecked, 'photos checked state in Topbar');
+  console.log(foodChecked, 'food checked state in Topbar');
 
   return (
     <Flex
@@ -43,10 +51,22 @@ const Topbar = ({ onSearch }: TopbarProps) => {
           onSearch={onSearch}
         />
 
-        <Switch label="Photos" />
-        <Switch label="Food" />
-        <Switch label="News" />
-        <Switch label="Radio" />
+        <Switch
+          label="Photos"
+          onCheckChange={(prev) => setPhotosChecked(!photosChecked)}
+        />
+        <Switch
+          label="Food"
+          onCheckChange={(prev) => setFoodChecked(!foodChecked)}
+        />
+        <Switch
+          label="News"
+          onCheckChange={(prev) => setNewsChecked(!newsChecked)}
+        />
+        <Switch
+          label="Radio"
+          onCheckChange={(prev) => setRadioChecked(!radioChecked)}
+        />
       </Flex>
     </Flex>
   );
