@@ -1,7 +1,13 @@
 .floatingObjectContainer {
-  width: 200px;
-  height: 150px;
-  position: fixed;
-  top: 45%;
-  z-index: 1000;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  // justify-content: center;
+  // align-items: center;
+}
+.floatingObjectWrapper {
+  // background-image: url('/clouds.jpeg');
+  // background-size: cover;
+  // background-position: center;
+  background-color: black;
 }

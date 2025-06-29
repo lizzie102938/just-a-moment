@@ -1,15 +1,17 @@
+'use client';
+
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Topbar } from '@/components/Layout';
-import GuessThePlace from '@/components/GuessThePlace';
+// import GuessThePlace from '@/components/GuessThePlace';
 import { FloatingObject } from '@/components/FloatingObject';
 import { PhotoPanel } from '@/components/PhotoPanel';
-const MapItem = dynamic(() => import('../components/Map'), { ssr: false });
-import {} from '../components/PhotoPanel';
+const MapItem = dynamic(() => import('../../components/Map'), { ssr: false });
+import {} from '../../components/PhotoPanel';
 import { Box } from '@mantine/core';
 
 export default function Home() {
-  const [globeClicked, setGlobeClicked] = useState(false);
+  //   const [globeClicked, setGlobeClicked] = useState(false);
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
     null
   );
@@ -83,24 +85,24 @@ export default function Home() {
     setPlaceName(placeName);
     setCountry(country);
 
-    setGlobeClicked(true);
+    // setGlobeClicked(true);
   };
 
   return (
     <Box style={{ position: 'relative', minHeight: '100vh' }}>
       <Topbar onSearch={handleSearch} />
-      <Box onClick={handleGlobeClick} style={{ cursor: 'pointer' }}>
+      {/* <Box onClick={handleGlobeClick} style={{ cursor: 'pointer' }}>
         <FloatingObject />
-      </Box>
+      </Box> */}
       <MapItem onMapClick={handleMapClick} />
-      {globeClicked && photos.length > 0 && placeName && country && (
+      {/* {globeClicked && photos.length > 0 && placeName && country && (
         <GuessThePlace
           photos={photos}
           placeName={placeName}
           country={country}
           onClose={() => setGlobeClicked(false)}
         />
-      )}
+      )} */}
       {location && (
         <PhotoPanel
           photos={photos}
