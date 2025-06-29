@@ -7,7 +7,7 @@ export async function reverseGeocode(
 
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'just-one-moment (lizzielerwill@gmail.com)',
+      'User-Agent': 'the-discovery-panel (lizzielerwill@gmail.com)',
     },
   });
 

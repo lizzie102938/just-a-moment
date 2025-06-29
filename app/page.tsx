@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import GuessThePlace from '@/components/GuessThePlace';
-import { FloatingObject } from '@/components/FloatingObject';
+// import GuessThePlace from '@/components/GuessThePlace';
+// import { Globe } from '@/components/Globe/Globe';
 import classes from './page.module.scss';
+import { Box, Text, useMantineTheme, Flex } from '@mantine/core';
+
 const MapItem = dynamic(() => import('../components/Map'), { ssr: false });
 
-import { Box } from '@mantine/core';
-
 export default function Home() {
+  const theme = useMantineTheme();
   const [globeClicked, setGlobeClicked] = useState(false);
 
   const [photos, setPhotos] = useState<any[]>([]);
@@ -56,23 +57,58 @@ export default function Home() {
   };
 
   return (
-    <Box className={classes.homePage}>
-      <Box onClick={handleGlobeClick} style={{ cursor: 'pointer' }}>
-        <FloatingObject />
-      </Box>
-      <Link href="/site" passHref>
-        {globeClicked && photos.length > 0 && placeName && country && (
-          <GuessThePlace
-            photos={photos}
-            placeName={placeName}
-            country={country}
-            onClose={() => setGlobeClicked(false)}
-          />
-        )}
-      </Link>
-      {/* <Link href="/site" passHref>
-        Site
-      </Link> */}
+    // <Box className={classes.homePage}>
+    //   <Text
+    //     ta={'center'}
+    //     c={theme.colors.indigo[1]}
+    //     className={classes.title}
+    //     fz={80}
+    //   >
+    //     Welcome to The Discovery Panel
+    //   </Text>
+    //   <Box onClick={handleGlobeClick} style={{ cursor: 'pointer' }}>
+    //     <Globe />
+    //   </Box>
+    //   {globeClicked && photos.length > 0 && placeName && country && (
+    //     <GuessThePlace
+    //       photos={photos}
+    //       placeName={placeName}
+    //       country={country}
+    //       onClose={() => setGlobeClicked(false)}
+    //     />
+    //   )}
+    // </Box>
+
+    <Box className={classes.videoBackgroundContainer}>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={classes.videoBackground}
+      >
+        <source src="/discovery.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <Flex className={classes.contentOverlay} gap={10} direction="column">
+        <Flex c={'#bac8ff'} align={'center'} gap={15}>
+          <Text c={'#bac8ff'} fz={60}>
+            Welcome to The Discovery Panel
+          </Text>
+          <Link href="/site" passHref color={'#bac8ff'}>
+            <img
+              src="/arrow.svg"
+              alt="Arrow Icon"
+              height={50}
+              className={classes.arrow}
+            />
+          </Link>
+        </Flex>
+        <Text fz={20} c={theme.colors.indigo[2]}>
+          Explore the World from your browser
+        </Text>
+      </Flex>
     </Box>
   );
 }

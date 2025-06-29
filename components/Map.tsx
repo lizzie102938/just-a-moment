@@ -1,5 +1,9 @@
-// components/Map.tsx
-import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  useMapEvents,
+  ZoomControl,
+} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -28,13 +32,14 @@ export default function Map({ onMapClick }: MapProps) {
       ]}
       maxBoundsViscosity={0.05}
       worldCopyJump={true}
+      zoomControl={false} // disable default zoom control
       style={{ height: '100vh', width: '100%' }}
     >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution='© <a href="https://carto.com/">Carto</a>'
       />
-
+      <ZoomControl position="bottomleft" /> {/* add zoom control explicitly */}
       <MapClickHandler />
     </MapContainer>
   );
