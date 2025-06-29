@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  devIndicators: false,
   webpack(config) {
     if (process.env.__NEXT_NEW_BUNDLER !== 'turbo') {
       // Only add the svg loader for webpack

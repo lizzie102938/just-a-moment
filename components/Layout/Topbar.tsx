@@ -3,6 +3,7 @@ import Switch from '@/components/Switch';
 import Badge from '@/components/Badge';
 import styles from './Topbar.module.scss';
 import { useState } from 'react';
+import Link from 'next/link';
 
 type TopbarProps = {
   onSearch: (query: string) => void;
@@ -14,9 +15,6 @@ const Topbar = ({ onSearch }: TopbarProps) => {
   const [foodChecked, setFoodChecked] = useState(false);
   const [newsChecked, setNewsChecked] = useState(false);
   const [radioChecked, setRadioChecked] = useState(false);
-
-  console.log(photosChecked, 'photos checked state in Topbar');
-  console.log(foodChecked, 'food checked state in Topbar');
 
   return (
     <Flex
@@ -34,12 +32,14 @@ const Topbar = ({ onSearch }: TopbarProps) => {
         withArrow
         zIndex={1000}
       >
-        <img
-          src="/bucket.svg"
-          alt="Bucket Icon"
-          height={50}
-          className={styles.bucket}
-        />
+        <Link href="/bucket-list" passHref>
+          <img
+            src="/bucket.svg"
+            alt="Bucket Icon"
+            height={50}
+            className={styles.bucket}
+          />
+        </Link>
       </Tooltip>
       <Flex justify={'space-between'} align={'center'} pl={16} gap={48}>
         <Badge

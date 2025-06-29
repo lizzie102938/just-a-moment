@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { reverseGeocode } from '@/components/ReverseGeocoder';
+import { reverseGeocode } from '@/pages/api/ReverseGeocoder';
 
 // async function reverseGeocode(
 //   lat: number,
@@ -43,8 +43,10 @@ export default async function handler(
   }
 
   // Get place name from coordinates
-  const placeName = await reverseGeocode(latitude, longitude);
-  console.log('Place name:', placeName);
+
+  // const placeName = await reverseGeocode(latitude, longitude);
+  const { placeName, country } = await reverseGeocode(latitude, longitude);
+  console.log(`Location: ${placeName}, ${country}`);
 
   if (!placeName) {
     return res
@@ -72,7 +74,6 @@ export default async function handler(
     const data = await response.json();
 
     console.log(data, 'data');
-
     if (!data.results) {
       return res
         .status(500)
@@ -80,14 +81,14 @@ export default async function handler(
     }
 
     const photos = data.results.map((photo: any) => ({
-      title: photo.alt_description || 'Untitled',
+      // title: photo.alt_description || 'Untitled',
       url: photo.urls.small,
       // photographer: photo.user.name,
-      link: photo.links.html,
+      // link: photo.links.html,
       date: photo.created_at,
     }));
 
-    res.status(200).json({ photos, placeName });
+    res.status(200).json({ photos, placeName, country });
   } catch (error) {
     console.error('API handler error:', error);
     res.status(500).json({ error: 'Internal server error' });
