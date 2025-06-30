@@ -1,0 +1,15 @@
+.bucket {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.topbar {
+  z-index: 1002;
+  background-color: rgba(255, 255, 255, 0.75); // if you want a frosted look
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // subtle shadow
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); // optional subtle line
+}

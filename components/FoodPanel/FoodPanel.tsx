@@ -1,27 +1,29 @@
 import classes from './FoodPanel.module.scss';
 import Badge from '@/components/Badge/Badge';
 import { Modal, Box, Flex } from '@mantine/core';
-import PhotoCard from '../PhotoCard/PhotoCard';
-import { Photo } from '../types';
+import MealCard from '../MealCard/MealCard';
+import { MealType } from '../../types';
+import { useEffect } from 'react';
+// import { countryAdjectiveMapping } from '../../utils/countryAdjectiveMapping';
 
-type FoodPanelProps = {
-  readonly photos: Photo[];
-  readonly location: { lat: number; lng: number };
-  readonly placeName?: string | null;
-  readonly country?: string | null;
+interface FoodPanelProps {
+  readonly meals: MealType[];
   readonly onClose: () => void;
-};
+  readonly country?: string | null;
+  readonly visible: boolean;
+}
 
 export function FoodPanel({
-  photos,
-  location,
-  placeName,
+  meals,
   country,
   onClose,
+  visible,
 }: FoodPanelProps) {
+  // add useEffect to update meals and country when they change
+
   return (
     <Modal
-      opened={!!location}
+      opened={visible}
       onClose={onClose}
       zIndex={1003}
       size={'auto'}
@@ -36,17 +38,14 @@ export function FoodPanel({
     >
       <Box className={classes.panel}>
         <Flex align="center" gap={25}>
-          <h2 className={classes.heading}>
-            Photos of ({location.lat.toFixed(2)}, {location.lng.toFixed(2)})
-            {placeName ? ` – ${placeName}` : ''},{country ? `${country}` : ''}
-          </h2>
+          <h2 className={classes.heading}>Photos of food from {country}</h2>
 
           <Badge label={'Add to Bucket List'} type={'simple'} />
         </Flex>
 
         <Box className={classes.grid}>
-          {photos.map((photo) => {
-            return <PhotoCard key={photo.url} photo={photo} />;
+          {meals?.map((meal) => {
+            return <MealCard key={meal.strMeal} meal={meal} />;
           })}
         </Box>
       </Box>

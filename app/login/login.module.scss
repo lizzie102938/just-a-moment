@@ -1,0 +1,12 @@
+.mainContainer {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/user-bg.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+}

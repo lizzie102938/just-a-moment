@@ -1,4 +1,3 @@
-// app/layout.tsx
 import '@mantine/core/styles.css';
 import 'leaflet/dist/leaflet.css';
 

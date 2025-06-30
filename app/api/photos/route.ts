@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { reverseGeocode } from '@/app/api/ReverseGeocoder';
+import { reverseGeocode } from '@/utils/ReverseGeocoder';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

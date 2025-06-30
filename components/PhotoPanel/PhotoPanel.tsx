@@ -2,10 +2,10 @@ import classes from './PhotoPanel.module.scss';
 import Badge from '@/components/Badge/Badge';
 import { Modal, Box, Flex } from '@mantine/core';
 import PhotoCard from '../PhotoCard/PhotoCard';
-import { Photo } from '../types';
+import { PhotoType } from '../../types';
 
 type PhotoPanelProps = {
-  readonly photos: Photo[];
+  readonly photos: PhotoType[];
   readonly location: { lat: number; lng: number };
   readonly placeName?: string | null;
   readonly country?: string | null;

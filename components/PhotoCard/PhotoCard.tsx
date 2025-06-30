@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import classes from './PhotoCard.module.scss';
 import { format } from 'date-fns';
 import { Box, useMantineTheme, Badge as MantineBadge } from '@mantine/core';
+import { PhotoType } from '../../types'; // Adjust the import path as necessary
 
-type Photo = {
-  url: string;
-  title: string;
-  date: string;
-};
-
-type PhotoProps = {
-  photo: Photo;
+type PhotoCardProps = {
+  photo: PhotoType;
 };
 
 const formatDate = (date: string, output: string = 'dd.MM.yy') => {
@@ -19,7 +14,7 @@ const formatDate = (date: string, output: string = 'dd.MM.yy') => {
   return format(parsed, output);
 };
 
-const PhotoCard = ({ photo }: PhotoProps) => {
+const PhotoCard = ({ photo }: PhotoCardProps) => {
   const theme = useMantineTheme();
   const [hovered, setHovered] = useState(false);
 
