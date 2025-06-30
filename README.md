@@ -1,4 +1,4 @@
-This is a Full-Stack Next.js project (still in progress) which incorporates multiple public APIs (Unsplash, TheMealDB, OpenStreetMap, RadioBrowser and others), as well as database handling with PostgreSQL.
+This is a Full-Stack Next.js project (still in progress) which incorporates multiple public APIs (Unsplash, TheMealDB, OpenStreetMap, RadioBrowser and others), as well as database handling with PostgreSQL and Prisma.
 
 ## What's it about
 
