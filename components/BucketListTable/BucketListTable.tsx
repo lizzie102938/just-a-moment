@@ -1,74 +1,108 @@
 'use client';
-
-import { Box, Flex, Table, Tooltip, useMantineTheme } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
+import { Box, Flex, Table } from '@mantine/core';
+import Tooltip from '@/components/Tooltip/Tooltip';
+import BackArrow from '@/components/BackArrow/BackArrow';
 import classes from './BucketListTable.module.scss';
-import { useRouter } from 'next/router';
+import { isNotEmpty } from '@mantine/form';
 
-const trashIcon = <img src="/trash.svg" alt="Delete Icon" width={30} />;
+const fetchBucketList = async () => {
+  try {
+    const response = await fetch('/api/bucket-list');
+    if (!response.ok) {
+      throw new Error('Failed to fetch bucket list');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching bucket list:', error);
+    return [];
+  }
+};
 
-const elements = [
-  { country: 'Spain', reason: 'Food', action: trashIcon },
-  { country: 'France', reason: 'Photos', action: trashIcon },
-  { country: 'Japan', reason: 'News', action: trashIcon },
-  { country: 'Canada', reason: 'Food', action: trashIcon },
-  { country: 'Bangladesh', reason: 'Radio', action: trashIcon },
-];
+const deleteBucketListItem = async (id: number) => {
+  try {
+    const response = await fetch('/api/bucket-list', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete bucket list item');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting bucket list item:', error);
+  }
+};
 
 export default function BucketTable() {
-  const theme = useMantineTheme();
-  const router = useRouter();
+  const [bucketList, setBucketList] = useState<
+    { country: string; reason: string; id: number }[]
+  >([]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await fetchBucketList();
+      setBucketList(data);
+    };
+
+    loadData();
+  }, []);
 
   return (
-    <Flex style={{ minHeight: '100vh' }}>
-      <Box className={classes.leftPanel}>
-        <Tooltip
-          label={'Go back'}
-          withArrow
-          position="bottom"
-          color={theme.colors.indigo[2]}
-          c={theme.colors.gray[7]}
-          fw={600}
-          fz={12}
-        >
-          <img
-            src="/back-arrow.svg"
-            alt="Back Arrow"
-            height={40}
-            className={classes.backArrow}
-            onClick={() => router.back()}
-          />
-        </Tooltip>
-      </Box>
+    <>
+      <BackArrow />
+      <Flex className={classes.leftHandImage}>
+        <Box className={classes.leftPanel}>
+          {' '}
+          <Box ta={'center'} mt={'md'}>
+            <img src="/bucket.svg" alt="Bucket Icon" height={70} />
+          </Box>
+        </Box>
 
-      <Box className={classes.rightPanel}>
-        <img src="/bucket.svg" alt="Bucket Icon" height={70} />
-        <Table className={classes.bucketTable} mt="md">
-          <thead>
-            <tr>
-              <th>Country</th>
-              <th>Because of the ...</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {elements.map(({ country, reason, action }) => (
-              <tr key={country}>
-                <td>{country}</td>
-                <td>{reason}</td>
-                <Tooltip
-                  label="Delete from Bucket List"
-                  withArrow
-                  position="bottom"
-                  color={theme.colors.indigo[2]}
-                  c={theme.colors.gray[7]}
-                >
-                  <td>{action}</td>
-                </Tooltip>
+        <Box className={classes.rightPanel}>
+          <Table className={classes.bucketTable} mt="md">
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Because of the ...</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Box>
-    </Flex>
+            </thead>
+            <tbody>
+              {bucketList.map(({ country, reason, id }) => (
+                <tr key={country}>
+                  <td>{country}</td>
+                  <td>{reason}</td>
+                  <Tooltip label={'Delete from Bucket List'}>
+                    <td>
+                      {
+                        <img
+                          src="/trash.svg"
+                          alt="Delete Icon"
+                          width={30}
+                          onClick={async () => {
+                            const result = await deleteBucketListItem(id);
+                            if (result) {
+                              setBucketList((prev) =>
+                                prev.filter((item) => item.id !== id)
+                              );
+                            }
+                          }}
+                        />
+                      }
+                    </td>
+                  </Tooltip>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Box>
+      </Flex>
+    </>
   );
 }

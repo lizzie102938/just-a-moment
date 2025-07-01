@@ -2,6 +2,10 @@
   justify-content: center;
 }
 
+.leftHandImage {
+  min-height: '100vh';
+}
+
 .bucketTable {
   width: 100%;
   border-collapse: separate;
@@ -52,10 +56,10 @@
   vertical-align: middle; /* center vertically */
 }
 
-.backArrow {
-  position: relative;
-  top: -20px;
-}
+// .backArrow {
+//   position: relative;
+//   top: -20px;
+// }
 
 .desertImage {
   position: absolute;

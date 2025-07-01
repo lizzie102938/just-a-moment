@@ -9,7 +9,7 @@ import classes from './Badge.module.scss';
 import classNames from 'classnames';
 
 type BadgeProps = {
-  label: string;
+  label: string | React.ReactNode;
   hasInput?: boolean;
   onSearch?: (query: string) => void;
   type: 'simple' | 'input';
@@ -29,7 +29,6 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
   };
 
   return (
-    // add min width for badge to stop overspill
     <MantineBadge
       h={type === 'simple' ? 35 : 50}
       ta="center"

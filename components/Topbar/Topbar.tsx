@@ -1,7 +1,9 @@
-import { Flex, useMantineTheme, Tooltip } from '@mantine/core';
+import { Flex, useMantineTheme } from '@mantine/core';
 import Switch from '@/components/Switch/Switch';
+import Tooltip from '@/components/Tooltip/Tooltip';
 import Badge from '@/components/Badge/Badge';
 import classes from './Topbar.module.scss';
+import { useSession, signOut } from 'next-auth/react';
 
 import Link from 'next/link';
 
@@ -13,51 +15,61 @@ type TopbarProps = {
 
 const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
   const theme = useMantineTheme();
+  const { data: session } = useSession();
+
+  console.log(session, 'sesh');
 
   return (
     <Flex
-      w="100%"
+      w={'100%'}
       className={classes.topbar}
-      align="center"
-      justify="space-between"
-      px="md"
-      py="sm"
-      wrap="wrap"
+      align={'center'}
+      justify={'space-between'}
+      px={'md'}
+      py={'sm'}
+      wrap={'wrap'}
       style={{
-        gap: '1rem',
         backgroundColor: theme.colors.gray[0],
         borderBottom: `1px solid ${theme.colors.gray[3]}`,
       }}
     >
+      {' '}
+      <Tooltip label={'Home'}>
+        <Link href="/" passHref>
+          <img
+            src={'/home.svg'}
+            width={40}
+            alt={'home'}
+            className={classes.icon}
+          />
+        </Link>
+      </Tooltip>
       <Flex align="center">
-        <Tooltip
-          label="Log in / Register"
-          color={theme.colors.indigo[2]}
-          c={theme.colors.gray[7]}
-          withArrow
-          zIndex={1001}
-          radius={0}
-        >
-          <Link href="/login" passHref>
+        {!session?.user ? (
+          <Tooltip label={'Log in / Register'}>
+            <Link href="/login" passHref>
+              <img
+                src="/user.svg"
+                alt="User Icon"
+                height={36}
+                className={classes.icon}
+              />
+            </Link>
+          </Tooltip>
+        ) : (
+          <Tooltip label={'Logout'}>
             <img
+              onClick={() => signOut({ callbackUrl: '/' })}
               src="/user.svg"
               alt="User Icon"
               height={36}
-              style={{ display: 'block' }}
+              className={classes.logoutIcon}
             />
-          </Link>
-        </Tooltip>
+          </Tooltip>
+        )}
       </Flex>
-
       <Flex align="center">
-        <Tooltip
-          label="See Bucket List"
-          color={theme.colors.indigo[2]}
-          c={theme.colors.gray[7]}
-          withArrow
-          zIndex={1001}
-          radius={0}
-        >
+        <Tooltip label={'See Bucket List'}>
           <Link href="/bucket-list" passHref>
             <img
               src="/bucket.svg"
@@ -68,7 +80,6 @@ const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
           </Link>
         </Tooltip>
       </Flex>
-
       {/* Controls Section */}
       <Flex
         wrap="wrap"
@@ -78,13 +89,17 @@ const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
         style={{ flexGrow: 1 }}
       >
         <Badge
-          type="input"
-          label="Click somewhere on the map or type a location or landmark here:"
+          type={'input'}
+          label={
+            <span className={classes.hideOnMobile}>
+              Click somewhere on the map or type a location or landmark here:
+            </span>
+          }
           hasInput={true}
           onSearch={onSearch}
         />
 
-        {['Photos', 'Food', 'News', 'Radio'].map((label) => (
+        {['Photos', 'Food', 'Radio'].map((label) => (
           <Switch
             key={label}
             label={label}

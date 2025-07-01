@@ -8,12 +8,11 @@ import { Topbar } from '@/components/Topbar';
 import { PhotoType, MealType } from '@/types';
 import { FoodPanel } from '@/components/FoodPanel/FoodPanel';
 import { PhotoPanel } from '@/components/PhotoPanel/PhotoPanel';
-const MapItem = dynamic(() => import('../../components/Map'), { ssr: false });
-import {} from '../../components/PhotoPanel/PhotoPanel';
+const MapItem = dynamic(() => import('@/components/Map'), { ssr: false });
 import { Box } from '@mantine/core';
-import { reverseGeocode } from '../../utils/ReverseGeocoder';
+import { reverseGeocode } from '@/utils/ReverseGeocoder';
 
-export default function Home() {
+export default function MainPage() {
   //   const [globeClicked, setGlobeClicked] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState<string | null>('photos');
 
@@ -90,8 +89,6 @@ export default function Home() {
       const { meals, country } = await fetchFoodByCoords(lat, lng);
       setMeals(meals);
       setCountry(country);
-    } else if (activeSwitch === 'news') {
-      // ...
     } else if (activeSwitch === 'radio') {
       // ...
     } else {

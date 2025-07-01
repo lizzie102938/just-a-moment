@@ -96,7 +96,7 @@ export default function Home() {
           <Text c={'#bac8ff'} fz={60}>
             Welcome to The Discovery Panel
           </Text>
-          <Link href="/site" passHref color={'#bac8ff'}>
+          <Link href="/main" passHref color={'#bac8ff'}>
             <img
               src="/arrow.svg"
               alt="Arrow Icon"

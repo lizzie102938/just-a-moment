@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css';
 import 'leaflet/dist/leaflet.css';
 
-import { MantineProvider } from '@mantine/core';
+import { Providers } from '../components/Providers/Providers';
 import type { ReactNode } from 'react';
 
 export const metadata = {
@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

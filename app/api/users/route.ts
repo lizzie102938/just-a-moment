@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
 import prisma from '@/lib/prisma';
 
 export async function GET() {
@@ -7,11 +8,24 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { username, email, password_hash } = await request.json();
+  try {
+    const { email, password } = await request.json();
 
-  const newUser = await prisma.users.create({
-    data: { username, email, password_hash },
-  });
+    const password_hash = await bcrypt.hash(password, 10);
 
-  return NextResponse.json(newUser);
+    const newUser = await prisma.users.create({
+      data: {
+        email,
+        password_hash,
+      },
+    });
+
+    return NextResponse.json(newUser);
+  } catch (err) {
+    console.error('API Error:', err);
+    return NextResponse.json(
+      { error: 'User creation failed', details: err },
+      { status: 500 }
+    );
+  }
 }

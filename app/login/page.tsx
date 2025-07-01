@@ -1,10 +1,10 @@
 import classes from './login.module.scss';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import Login from '../../components/Login/Login';
 
 export default function LoginPage() {
   return (
     <main className={classes.mainContainer}>
-      <LoginForm />
+      <Login />
     </main>
   );
 }
