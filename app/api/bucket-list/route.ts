@@ -1,14 +1,37 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 
+// export async function GET() {
+//   const bucketlist_items = await prisma.bucketlist_items.findMany();
+//   return NextResponse.json(bucketlist_items);
+// }
+
+// import { getServerSession } from 'next-auth';
+// import { authOptions } from '@/lib/auth';
+// import { prisma } from '@/lib/prisma';
+// import { NextResponse } from 'next/server';
+
 export async function GET() {
-  const bucketlist_items = await prisma.bucketlist_items.findMany();
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const bucketlist_items = await prisma.bucketlist_items.findMany({
+    where: {
+      user_id: Number(session.user.id),
+    },
+  });
+
   return NextResponse.json(bucketlist_items);
 }
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { userId, country, reason } = body;
+  const { userId, country, reason, place_name } = body;
 
   try {
     const newEntry = await prisma.bucketlist_items.create({
@@ -16,7 +39,7 @@ export async function POST(req: Request) {
         user_id: Number(userId),
         country,
         reason,
-        place_name: country,
+        place_name,
       },
     });
 

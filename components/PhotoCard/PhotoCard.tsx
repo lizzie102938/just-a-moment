@@ -26,17 +26,15 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
       bg={theme.colors.indigo[1]}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => window.open(photo.url, '_blank')}
     >
       <img src={photo.url} alt={photo.title} className={classes.image} />
       {hovered && (
         <MantineBadge
-          color={theme.colors.indigo[3]}
+          color={theme.colors.gray[6]}
           variant={'filled'}
-          style={{
-            position: 'absolute',
-
-            zIndex: 1000,
-          }}
+          className={classes.badge}
+          radius={0}
         >
           {formatDate(photo.date)}
         </MantineBadge>

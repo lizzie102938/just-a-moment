@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, UseFormReturnType } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import {
   TextInput,
   useMantineTheme,
@@ -36,7 +36,7 @@ const Form = ({ onSubmit, title }: FormProps) => {
       w={'40vw'}
       mx={'auto'}
       p={'lg'}
-      mt={10}
+      mt={0}
       direction="column"
       gap={'md'}
       bg={theme.colors.indigo[2]}
@@ -58,7 +58,7 @@ const Form = ({ onSubmit, title }: FormProps) => {
         <TextInput
           c={theme.colors.gray[7]}
           withAsterisk
-          label="Password"
+          label={'Password'}
           placeholder="TopS3cretpa$$w0rd!"
           key={form.key('password')}
           {...form.getInputProps('password')}
@@ -66,7 +66,7 @@ const Form = ({ onSubmit, title }: FormProps) => {
 
         <Group justify="flex-end">
           <Button
-            type="submit"
+            type={'submit'}
             color={theme.colors.gray[1]}
             c={theme.colors.indigo[5]}
           >

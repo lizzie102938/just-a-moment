@@ -7,6 +7,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import BackArrow from '@/components/BackArrow/BackArrow';
 import Form from '@/components/Form/Form';
+import classes from './Login.module.scss';
 
 const Login = () => {
   const router = useRouter();
@@ -55,12 +56,18 @@ const Login = () => {
   return (
     <Box w={'100vw'}>
       <BackArrow />
-      <Flex direction={'column'} pt={140}>
-        <Form onSubmit={handleCreateUser} title={'Create an account'} />
-        <Text c={theme.colors.indigo[2]} pt={20} fw={800} ta={'center'}>
-          OR
-        </Text>
-        <Form onSubmit={handleLogin} title={'Login'} />
+
+      <Flex className={classes.container}>
+        <Box className={classes.leftPanel}></Box>
+        <Box className={classes.rightPanel}>
+          <Flex direction={'column'} pt={140}>
+            <Form onSubmit={handleCreateUser} title={'Create an account'} />
+            <Text c={theme.colors.gray[7]} p={20} fw={800} ta={'center'}>
+              OR
+            </Text>
+            <Form onSubmit={handleLogin} title={'Login'} />
+          </Flex>
+        </Box>
       </Flex>
     </Box>
   );

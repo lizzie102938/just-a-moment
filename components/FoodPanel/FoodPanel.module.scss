@@ -1,23 +1,23 @@
 // @use '../../styles/variables.scss' as *;
 
-.panel {
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-y: auto;
-  padding-bottom: 2rem;
-  padding-left: 2rem;
-}
+// .panel {
+//   font-family: Arial, Helvetica, sans-serif;
+//   overflow-y: auto;
+//   padding-bottom: 2rem;
+//   padding-left: 2rem;
+// }
 
 .heading {
   font-size: 1.4rem;
-  margin-bottom: 1.2rem;
+  //   margin-bottom: 1.2rem;
 }
 
 .grid {
-  padding-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 .caption {
@@ -30,4 +30,8 @@
   &:hover {
     background-color: white;
   }
+}
+
+.topInfo {
+  align-content: center;
 }

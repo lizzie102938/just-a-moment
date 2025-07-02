@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ meals: data.meals });
+    return NextResponse.json({ meals: data.meals, country });
   } catch (error) {
     console.error('Error fetching meals:', error);
     return NextResponse.json(

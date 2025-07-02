@@ -1,8 +1,10 @@
 .card {
   border: 1px solid lighten(#e4e9be, 10%);
-  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .image {
@@ -10,4 +12,9 @@
   height: 150px;
   object-fit: cover;
   display: block;
+}
+
+.badge {
+  position: absolute;
+  z-index: 1000;
 }

@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Text, Loader, Box } from '@mantine/core';
+import { RecipeType } from '@/types';
 
 interface RecipeProps {
   readonly recipeId: string;
   readonly onClose: () => void;
   readonly recipeName: string;
+  readonly recipeCardOpen: boolean;
 }
 
-const Recipe = ({ recipeId, onClose, recipeName }: RecipeProps) => {
-  const [recipe, setRecipe] = useState<any | null>(null);
+const Recipe = ({
+  recipeId,
+  onClose,
+  recipeName,
+  recipeCardOpen,
+}: RecipeProps) => {
+  const [recipe, setRecipe] = useState<RecipeType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +26,7 @@ const Recipe = ({ recipeId, onClose, recipeName }: RecipeProps) => {
           `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`
         );
         const data = await res.json();
-        setRecipe(data.meals?.[0] || null);
+        setRecipe(data.meals?.[0] ?? null);
       } catch (err) {
         console.error('Failed to fetch recipe:', err);
         setRecipe(null);
@@ -32,7 +39,12 @@ const Recipe = ({ recipeId, onClose, recipeName }: RecipeProps) => {
   }, [recipeId]);
 
   return (
-    <Modal opened onClose={onClose} zIndex={1003} title={recipeName}>
+    <Modal
+      opened={recipeCardOpen}
+      onClose={onClose}
+      zIndex={1003}
+      title={recipeName}
+    >
       {loading && <Loader />}
       {!loading && recipe ? (
         <Box>

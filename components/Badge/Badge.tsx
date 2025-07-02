@@ -37,18 +37,21 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
       // radius={type === 'simple' ? 'sm' : 'md'}
       radius={0}
       variant="light"
-      bg={theme.colors.indigo[2]}
-      c={theme.colors.gray[7]}
+      // bg={theme.colors.indigo[2]}
+      bg={theme.colors.gray[7]}
+      // c={theme.colors.gray[6]}
+      fz={12}
+      c={'white'}
       fw={'bold'}
       className={classNames(classes.badge, {
         [classes.inputBadge]: type === 'input',
       })}
     >
-      <Group gap="xs" align="center">
+      <Group gap={'xs'} align={'center'} wrap={'nowrap'}>
         {label}
         {hasInput && (
           <TextInput
-            size="xs"
+            size={'xs'}
             w={200}
             value={inputValue}
             onChange={(e) => setInputValue(e.currentTarget.value)}

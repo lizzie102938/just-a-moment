@@ -19,6 +19,7 @@ const Tooltip = ({ children, label }: TooltipProps) => {
       fw={600}
       fz={12}
       zIndex={1050}
+      offset={12}
     >
       {children}
     </MantineTooltip>
