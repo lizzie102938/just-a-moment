@@ -6,7 +6,6 @@ export const theme: MantineThemeOverride = {
   primaryColor: 'primaryColor',
 
   colors: {
-    // primaryColor: ['#e1e0f9'],
     indigo: [
       '#e1e0f9',
       '#dbe4ff',
@@ -19,18 +18,7 @@ export const theme: MantineThemeOverride = {
       '#3b5bdb',
       '#364fc7',
     ],
-    green: [
-      '#e9ecd4',
-      '#d4e1c2',
-      '#c3d6a3',
-      '#b0c982',
-      '#9eb866',
-      '#808000',
-      '#677b4d',
-      '#4b5320',
-      '#3a4b22',
-      '#2c3519',
-    ],
+
     gray: [
       '#f8f9fa',
       '#f1f3f5',
@@ -45,18 +33,8 @@ export const theme: MantineThemeOverride = {
     ],
   },
   defaultRadius: 'md',
-  //   spacing: {
-  //     xs: 4,
-  //     sm: 8,
-  //     md: 16,
-  //     lg: 24,
-  //     xl: 32,
-  //   },
+
   headings: {
     fontFamily: 'Roboto, sans-serif',
-    sizes: {
-      h1: { fontSize: '32' },
-      h2: { fontSize: '28' },
-    },
   },
 };

@@ -35,3 +35,14 @@
     display: none;
   }
 }
+
+.iconGroup {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: 1036px) {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}

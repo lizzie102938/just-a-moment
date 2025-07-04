@@ -1,11 +1,11 @@
-import { Flex, useMantineTheme, Box } from '@mantine/core';
-import Switch from '@/components/Switch/Switch';
-import Tooltip from '@/components/Tooltip/Tooltip';
-import Badge from '@/components/Badge/Badge';
-import classes from './Topbar.module.scss';
-import { useSession, signOut } from 'next-auth/react';
+'use client';
 
+import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { Flex } from '@mantine/core';
+import { Switch, Tooltip, Badge } from '@/components';
+
+import classes from './Topbar.module.scss';
 
 type TopbarProps = {
   onSearch: (query: string) => void;
@@ -15,8 +15,6 @@ type TopbarProps = {
 
 const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
   const { data: session } = useSession();
-
-  console.log(session, 'sesh');
 
   return (
     <Flex
@@ -29,7 +27,7 @@ const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
       gap={'md'}
       wrap={'wrap'}
     >
-      <Flex gap={'md'}>
+      <Flex gap={'md'} className={classes.iconGroup}>
         {' '}
         <Tooltip label={'Home'}>
           <Link href="/" passHref>
@@ -78,7 +76,7 @@ const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
           </Tooltip>
         </Flex>
       </Flex>
-      {/* <Box className={classes.searchContainer}> */}
+
       <Flex
         wrap={'wrap'}
         align={'center'}
@@ -113,7 +111,6 @@ const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
           ))}
         </Flex>
       </Flex>
-      {/* </Box> */}
     </Flex>
   );
 };

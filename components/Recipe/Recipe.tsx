@@ -1,6 +1,9 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { Modal, Text, Loader, Box } from '@mantine/core';
+import { Modal, Text, Loader, Box, useMantineTheme } from '@mantine/core';
 import { RecipeType } from '@/types';
+import classes from './Recipe.module.scss';
 
 interface RecipeProps {
   readonly recipeId: string;
@@ -15,6 +18,7 @@ const Recipe = ({
   recipeName,
   recipeCardOpen,
 }: RecipeProps) => {
+  const theme = useMantineTheme();
   const [recipe, setRecipe] = useState<RecipeType | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,19 +42,38 @@ const Recipe = ({
     fetchRecipe();
   }, [recipeId]);
 
+  const ingredients =
+    recipe &&
+    Array.from({ length: 20 }, (_, i) => {
+      const ingredient = recipe[`strIngredient${i + 1}` as keyof RecipeType];
+      const measure = recipe[`strMeasure${i + 1}` as keyof RecipeType];
+
+      if (ingredient?.trim()) {
+        return `${measure?.trim() || ''} ${ingredient.trim()}`;
+      }
+      return null;
+    }).filter(Boolean);
+
   return (
     <Modal
       opened={recipeCardOpen}
       onClose={onClose}
-      zIndex={1003}
-      title={recipeName}
+      zIndex={1005}
+      title={<Text className={classes.title}>{recipeName}</Text>}
     >
       {loading && <Loader />}
       {!loading && recipe ? (
         <Box>
-          <Text size="sm" mt="xs">
-            {recipe.strInstructions}
+          <Text fw={500} mb={'sm'}>
+            Ingredients:
           </Text>
+          <ul>
+            {ingredients?.map((item, index) => <li key={index}>{item}</li>)}
+          </ul>
+          <Text fw={500} mt={'lg'} mb={'xs'}>
+            Instructions:
+          </Text>
+          <Text size="sm">{recipe.strInstructions}</Text>
         </Box>
       ) : (
         !loading && <Text>No recipe found.</Text>

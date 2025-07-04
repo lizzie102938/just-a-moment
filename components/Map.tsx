@@ -1,3 +1,5 @@
+'use client';
+
 import {
   MapContainer,
   TileLayer,
@@ -7,10 +9,10 @@ import {
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  onMapClick: (lat: number, lng: number) => void;
+  readonly onMapClick: (lat: number, lng: number) => void;
 };
 
-export default function Map({ onMapClick }: MapProps) {
+export default function MapFunction({ onMapClick }: MapProps) {
   function MapClickHandler() {
     useMapEvents({
       click(e) {
@@ -22,8 +24,8 @@ export default function Map({ onMapClick }: MapProps) {
 
   return (
     <MapContainer
-      center={[20, 0]}
-      zoom={2}
+      center={[50, 50]}
+      zoom={4}
       minZoom={3.5}
       maxZoom={12}
       maxBounds={[
@@ -32,7 +34,7 @@ export default function Map({ onMapClick }: MapProps) {
       ]}
       maxBoundsViscosity={0.05}
       worldCopyJump={true}
-      zoomControl={false} // disable default zoom control
+      zoomControl={false}
       style={{ height: '100vh', width: '100%' }}
     >
       <TileLayer

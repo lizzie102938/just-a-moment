@@ -1,12 +1,11 @@
 'use client';
 
 import React from 'react';
-
-import { Flex, Text, useMantineTheme, Box } from '@mantine/core';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import BackArrow from '@/components/BackArrow/BackArrow';
-import Form from '@/components/Form/Form';
+import { Flex, Text, useMantineTheme, Box } from '@mantine/core';
+
+import { Form, BackArrow } from '@/components';
 import classes from './Login.module.scss';
 
 const Login = () => {
@@ -25,6 +24,7 @@ const Login = () => {
         },
         body: JSON.stringify(values),
       });
+      handleLogin(values);
 
       if (!res.ok) {
         const error = await res.text();
@@ -60,7 +60,7 @@ const Login = () => {
       <Flex className={classes.container}>
         <Box className={classes.leftPanel}></Box>
         <Box className={classes.rightPanel}>
-          <Flex direction={'column'} pt={140}>
+          <Flex direction={'column'} pt={40}>
             <Form onSubmit={handleCreateUser} title={'Create an account'} />
             <Text c={theme.colors.gray[7]} p={20} fw={800} ta={'center'}>
               OR

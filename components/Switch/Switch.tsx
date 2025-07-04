@@ -1,3 +1,5 @@
+'use client';
+
 import { useMantineTheme, Switch as MantineSwitch } from '@mantine/core';
 
 interface SwitchProps {
@@ -14,8 +16,8 @@ const Switch = ({ label, checked, onChange }: SwitchProps) => {
       checked={checked}
       label={label}
       color={theme.colors.indigo[2]}
-      size="md"
-      radius="lg"
+      size={'md'}
+      radius={'lg'}
       styles={{
         label: {
           fontSize: '14px',

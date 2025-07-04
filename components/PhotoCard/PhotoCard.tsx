@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState } from 'react';
-import classes from './PhotoCard.module.scss';
 import { format } from 'date-fns';
 import { Box, useMantineTheme, Badge as MantineBadge } from '@mantine/core';
-import { PhotoType } from '../../types'; // Adjust the import path as necessary
+import { PhotoType } from '@/types';
+import classes from './PhotoCard.module.scss';
 
 type PhotoCardProps = {
   photo: PhotoType;

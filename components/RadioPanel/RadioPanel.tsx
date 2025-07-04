@@ -3,30 +3,30 @@
 import { useSession } from 'next-auth/react';
 import { Modal, Box, Flex, Text, useMantineTheme } from '@mantine/core';
 
-import { MealCard, Tooltip, Button } from '@/components';
-import { MealType } from '@/types';
-import classes from './FoodPanel.module.scss';
+import { Tooltip, Button } from '@/components';
+
+import classes from './RadioPanel.module.scss';
 
 interface FoodPanelProps {
-  readonly meals: MealType[];
   readonly country?: string | null;
   readonly opened: boolean;
+  readonly radioStations: any[];
   readonly insideBucketList?: boolean;
   readonly location?: { lat?: number; lng?: number } | null;
-  readonly onClose: () => void;
   readonly onSuccess?: () => void;
   readonly onError?: () => void;
+  readonly onClose: () => void;
 }
 
 const FoodPanel = ({
-  meals,
   country,
   opened,
+  radioStations,
   insideBucketList,
   location,
-  onClose,
   onSuccess,
   onError,
+  onClose,
 }: FoodPanelProps) => {
   const theme = useMantineTheme();
   const { data: session } = useSession();
@@ -38,8 +38,6 @@ const FoodPanel = ({
     }
 
     const userId = session?.user?.id;
-    const lat = location?.lat;
-    const lng = location?.lng;
 
     fetch('/api/bucket-list', {
       method: 'POST',
@@ -49,9 +47,7 @@ const FoodPanel = ({
       body: JSON.stringify({
         user_id: userId,
         country,
-        latitude: lat,
-        longitude: lng,
-        reason: 'Food',
+        reason: 'Radio',
       }),
     })
       .then((response) => {
@@ -87,17 +83,16 @@ const FoodPanel = ({
         },
       }}
     >
-      {meals.length === 0 ? (
+      {radioStations.length === 0 ? (
         <Text p={16} c={theme.colors.gray[7]}>
-          Sorry, we have no recipes for this location, please select another.
+          Sorry, we have no radio stations for this location or the external
+          Radio Browser API this site relies on is down
         </Text>
       ) : (
         <>
           <Flex gap={25} justify={'center'} pb={'lg'}>
-            <Flex direction={'column'}>
-              <Text className={classes.heading}>Dishes from {country}</Text>
-              <Text>Click images for recipes</Text>
-            </Flex>
+            <Text className={classes.heading}>Radio from {country}</Text>
+
             <Box className={classes.topInfo}>
               {!insideBucketList && !session?.user.id && (
                 <Tooltip
@@ -120,11 +115,46 @@ const FoodPanel = ({
               )}
             </Box>
           </Flex>
-
           <Box className={classes.grid} p={'lg'}>
-            {meals?.map((meal) => {
-              return <MealCard key={meal.strMeal} meal={meal} />;
-            })}
+            {radioStations.map((station, index) => (
+              <Flex
+                key={station.name}
+                bg={'white'}
+                p={'md'}
+                gap={'md'}
+                align={'center'}
+                className={classes.stationCard}
+              >
+                <Flex align={'center'} gap={'sm'}>
+                  {station.favicon ? (
+                    <img src={station.favicon ?? ''} alt="" width={40} />
+                  ) : (
+                    ''
+                  )}
+                  <Text>{station.name}</Text>
+                </Flex>
+                <audio
+                  controls
+                  src={station.url}
+                  onPlay={(e) => {
+                    const audios = document.querySelectorAll('audio');
+                    audios.forEach((audioEl) => {
+                      if (audioEl !== e.currentTarget) {
+                        audioEl.pause();
+                      }
+                    });
+                  }}
+                >
+                  <track
+                    kind="captions"
+                    src={station.captionsUrl ?? ''}
+                    srcLang="en"
+                    label="English captions"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+              </Flex>
+            ))}
           </Box>
         </>
       )}

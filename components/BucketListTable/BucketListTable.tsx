@@ -1,54 +1,69 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Box, Flex, Table, Text, useMantineTheme } from '@mantine/core';
-import Toast from '@/components/Toast/Toast';
-import Tooltip from '@/components/Tooltip/Tooltip';
-import BackArrow from '@/components/BackArrow/BackArrow';
+import {
+  Button,
+  Toast,
+  Tooltip,
+  BackArrow,
+  PhotoPanel,
+  FoodPanel,
+  RadioPanel,
+} from '@/components';
+
 import classes from './BucketListTable.module.scss';
-import { AlertType, BucketListType } from '@/types';
+import {
+  AlertType,
+  BucketListType,
+  MealType,
+  PhotoType,
+  PhotoPanelInfoType,
+  FoodPanelInfoType,
+  RadioPanelInfoType,
+  PanelInfoType,
+} from '@/types';
 import { useSession } from 'next-auth/react';
+import {
+  fetchFoodByCoords,
+  fetchPhotosByCoords,
+  fetchRadioByCoords,
+  fetchBucketList,
+  deleteBucketListItem,
+} from '@/utils/fetchFunctions';
 
-const fetchBucketList = async () => {
-  try {
-    const response = await fetch('/api/bucket-list');
-    if (!response.ok) {
-      throw new Error('Failed to fetch bucket list');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching bucket list:', error);
-    return [];
-  }
-};
-
-const deleteBucketListItem = async (id: number) => {
-  try {
-    const response = await fetch('/api/bucket-list', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to delete bucket list item');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error deleting bucket list item:', error);
-  }
+const basePanelInitialInfo: PanelInfoType = {
+  opened: false,
+  reason: '',
+  country: '',
+  place_name: '',
+  longitude: 0,
+  latitude: 0,
 };
 
 export default function BucketTable() {
   const theme = useMantineTheme();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [alert, setAlert] = useState<AlertType | null>(null);
   const showSuccess = (message: string) =>
     setAlert({ type: 'success', message });
   const showError = (message: string) => setAlert({ type: 'error', message });
   const [bucketList, setBucketList] = useState<BucketListType[]>([]);
+  const [photoPanelInfo, setPhotoPanelInfo] = useState<PhotoPanelInfoType>({
+    ...basePanelInitialInfo,
+    place_name: '',
+    photos: [],
+  });
+
+  const [foodPanelInfo, setFoodPanelInfo] = useState<FoodPanelInfoType>({
+    ...basePanelInitialInfo,
+    meals: [],
+  });
+
+  const [radioPanelInfo, setRadioPanelInfo] = useState<RadioPanelInfoType>({
+    ...basePanelInitialInfo,
+    radioStations: [],
+  });
 
   useEffect(() => {
     const loadData = async () => {
@@ -58,6 +73,65 @@ export default function BucketTable() {
 
     loadData();
   }, []);
+
+  const handleHereClick = async (
+    reason: string,
+    country: string,
+    longitude: number,
+    latitude: number,
+    place_name?: string,
+    photos?: PhotoType[],
+    meals?: MealType[]
+  ) => {
+    if (!session?.user.id) return;
+
+    if (reason === 'Photos') {
+      if (typeof latitude === 'number' && typeof longitude === 'number') {
+        const fetchedPhotos = await fetchPhotosByCoords(latitude, longitude);
+        setPhotoPanelInfo({
+          opened: true,
+          country,
+          reason,
+          place_name,
+          longitude,
+          latitude,
+          photos: fetchedPhotos.photos,
+        });
+      } else {
+        showError('Missing coordinates for photo search');
+      }
+    } else if (reason === 'Food') {
+      if (typeof latitude === 'number' && typeof longitude === 'number') {
+        const fetchedMeals = await fetchFoodByCoords(latitude, longitude);
+        setFoodPanelInfo({
+          opened: true,
+          country,
+          reason,
+          longitude,
+          latitude,
+          meals: fetchedMeals.meals,
+        });
+      } else {
+        showError('Missing coordinates for food search');
+      }
+    } else if (reason === 'Radio') {
+      if (typeof latitude === 'number' && typeof longitude === 'number') {
+        const fetchedStations = await fetchRadioByCoords(latitude, longitude);
+        setRadioPanelInfo({
+          opened: true,
+          country,
+          reason,
+          longitude,
+          latitude,
+          radioStations: fetchedStations.radioStations,
+        });
+      } else {
+        showError('Missing coordinates for radio search');
+      }
+    } else {
+      showError('Unsupported reason for here click');
+    }
+  };
 
   return (
     <>
@@ -76,47 +150,76 @@ export default function BucketTable() {
                 <thead>
                   <tr>
                     <th>Country</th>
-                    <th>Place name</th>
-                    <th>Because of the ...</th>
+                    <th>Region</th>
+                    <th>Interest</th>
+                    <th>Revisit Search Results</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {bucketList.map(({ country, reason, id, place_name }) => (
-                    <tr key={`${country}-${id}`}>
-                      <td>{country}</td>
-                      <td>{place_name}</td>
-                      <td>{reason}</td>
-                      <Tooltip label={'Delete from Bucket List'}>
+                  {bucketList.map(
+                    ({
+                      country,
+                      reason,
+                      id,
+                      place_name,
+                      longitude,
+                      latitude,
+                    }) => (
+                      <tr key={`${country}-${id}`}>
+                        <td>{country}</td>
+                        <td>{place_name}</td>
+                        <td>{reason}</td>
                         <td>
-                          {
-                            <img
-                              src="/trash.svg"
-                              alt="Delete Icon"
-                              width={30}
-                              onClick={async () => {
-                                const result = await deleteBucketListItem(id);
-                                const error = result?.error;
-                                if (result) {
-                                  setBucketList((prev) =>
-                                    prev.filter((item) => item.id !== id)
-                                  );
-                                  showSuccess(
-                                    `Deleted ${country} from bucket list`
-                                  );
-                                }
-                                if (error) {
-                                  showError(
-                                    'Failed to delete item from bucket list'
-                                  );
-                                }
-                              }}
+                          {typeof longitude === 'number' &&
+                          typeof latitude === 'number' ? (
+                            <Button
+                              onClick={() =>
+                                handleHereClick(
+                                  reason,
+                                  country,
+                                  longitude,
+                                  latitude,
+                                  place_name
+                                )
+                              }
+                              label={'Here'}
                             />
-                          }
+                          ) : (
+                            <Text c={'gray'}></Text>
+                          )}
                         </td>
-                      </Tooltip>
-                    </tr>
-                  ))}
+                        <Tooltip label={'Delete from Bucket List'}>
+                          <td>
+                            {
+                              <img
+                                src="/trash.svg"
+                                alt="Delete Icon"
+                                width={30}
+                                onClick={async () => {
+                                  const result = await deleteBucketListItem(id);
+                                  const error = result?.error;
+                                  if (result) {
+                                    setBucketList((prev) =>
+                                      prev.filter((item) => item.id !== id)
+                                    );
+                                    showSuccess(
+                                      `Deleted ${country} from bucket list`
+                                    );
+                                  }
+                                  if (error) {
+                                    showError(
+                                      'Failed to delete item from bucket list'
+                                    );
+                                  }
+                                }}
+                              />
+                            }
+                          </td>
+                        </Tooltip>
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </Table>
             </>
@@ -137,6 +240,44 @@ export default function BucketTable() {
                 </Text>
               </Flex>
             </>
+          )}
+          {photoPanelInfo.opened && (
+            <PhotoPanel
+              opened={photoPanelInfo.opened}
+              onClose={() =>
+                setPhotoPanelInfo((prev) => ({ ...prev, opened: false }))
+              }
+              country={photoPanelInfo.country}
+              placeName={photoPanelInfo.place_name}
+              location={{
+                lat: photoPanelInfo.latitude,
+                lng: photoPanelInfo.longitude,
+              }}
+              photos={photoPanelInfo.photos}
+              insideBucketList={true}
+            />
+          )}
+          {foodPanelInfo.opened && (
+            <FoodPanel
+              opened={foodPanelInfo.opened}
+              onClose={() =>
+                setFoodPanelInfo((prev) => ({ ...prev, opened: false }))
+              }
+              country={foodPanelInfo.country}
+              meals={foodPanelInfo.meals}
+              insideBucketList={true}
+            />
+          )}
+          {radioPanelInfo.opened && (
+            <RadioPanel
+              opened={radioPanelInfo.opened}
+              onClose={() =>
+                setRadioPanelInfo((prev) => ({ ...prev, opened: false }))
+              }
+              country={radioPanelInfo.country}
+              radioStations={radioPanelInfo.radioStations}
+              insideBucketList={true}
+            />
           )}
         </Box>
       </Flex>

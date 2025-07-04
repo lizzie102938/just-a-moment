@@ -16,7 +16,7 @@ import prisma from '@/lib/prisma';
 export async function GET() {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user?.id) {
+  if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -26,20 +26,24 @@ export async function GET() {
     },
   });
 
+  console.log('Bucket list items:', bucketlist_items);
+
   return NextResponse.json(bucketlist_items);
 }
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { userId, country, reason, place_name } = body;
+  const { user_id, country, reason, place_name, latitude, longitude } = body;
 
   try {
     const newEntry = await prisma.bucketlist_items.create({
       data: {
-        user_id: Number(userId),
+        user_id: Number(user_id),
         country,
         reason,
         place_name,
+        latitude,
+        longitude,
       },
     });
 

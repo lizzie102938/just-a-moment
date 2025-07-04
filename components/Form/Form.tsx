@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useForm } from '@mantine/form';
 import {
@@ -37,9 +39,10 @@ const Form = ({ onSubmit, title }: FormProps) => {
       mx={'auto'}
       p={'lg'}
       mt={0}
-      direction="column"
+      direction={'column'}
       gap={'md'}
       bg={theme.colors.indigo[2]}
+      className={classes.formContainer}
     >
       <Text c={theme.colors.gray[7]} fz={'xl'} fw={700}>
         {title}

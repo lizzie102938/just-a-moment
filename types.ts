@@ -16,10 +16,12 @@ export type AlertType = {
 };
 
 export type BucketListType = {
-  country: string;
   reason: string;
+  country: string;
   id: number;
   place_name?: string;
+  longitude: number;
+  latitude: number;
 };
 
 export type RecipeType = {
@@ -27,4 +29,25 @@ export type RecipeType = {
   strMeal: string;
   strMealThumb: string;
   strInstructions: string;
+  strIngredient1: string;
+};
+
+export type PanelInfoType = {
+  opened: boolean;
+  country: string;
+  reason: string;
+  place_name?: string;
+  longitude: number;
+  latitude: number;
+};
+export type PhotoPanelInfoType = PanelInfoType & {
+  photos: PhotoType[];
+};
+
+export type FoodPanelInfoType = PanelInfoType & {
+  meals: MealType[];
+};
+
+export type RadioPanelInfoType = PanelInfoType & {
+  radioStations: any[];
 };

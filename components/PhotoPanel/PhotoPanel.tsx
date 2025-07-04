@@ -1,35 +1,40 @@
-import classes from './PhotoPanel.module.scss';
-import Button from '@/components/Button/Button';
-import { Modal, Box, Flex, Text, useMantineTheme } from '@mantine/core';
-import Tooltip from '@/components/Tooltip/Tooltip';
-import PhotoCard from '../PhotoCard/PhotoCard';
-import { PhotoType } from '../../types';
+'use client';
+
 import { useSession } from 'next-auth/react';
+import { Button, Tooltip, PhotoCard } from '@/components';
+import { Modal, Box, Flex, Text, useMantineTheme } from '@mantine/core';
+import { PhotoType } from '../../types';
+import classes from './PhotoPanel.module.scss';
 
 type PhotoPanelProps = {
-  readonly photos: PhotoType[];
-  readonly location: { lat: number; lng: number };
+  readonly photos?: PhotoType[];
+  readonly location: { lat?: number; lng?: number } | null;
   readonly placeName?: string | null;
   readonly country?: string | null;
+  readonly opened: boolean;
+  readonly insideBucketList?: boolean;
   readonly onClose: () => void;
-  readonly onSuccess: () => void;
-  readonly onError: () => void;
+  readonly onSuccess?: () => void;
+  readonly onError?: () => void;
 };
 
-export function PhotoPanel({
+const PhotoPanel = ({
   photos,
   location,
   placeName,
   country,
+  opened,
+  insideBucketList,
   onClose,
   onSuccess,
   onError,
-}: PhotoPanelProps) {
+}: PhotoPanelProps) => {
   const theme = useMantineTheme();
   const { data: session } = useSession();
   const handleAddToBucketList = (
     country: string | null,
-    placeName: string | null
+    placeName: string | null,
+    location: { lat?: number; lng?: number } | null
   ) => {
     if (!country) {
       console.log('No country provided');
@@ -38,14 +43,20 @@ export function PhotoPanel({
 
     const userId = session?.user.id;
 
+    const lat = location?.lat;
+
+    const lng = location?.lng;
+
     fetch('/api/bucket-list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        userId,
+        user_id: userId,
         country,
+        latitude: lat,
+        longitude: lng,
         place_name: placeName ?? '',
         reason: 'Photos',
       }),
@@ -54,25 +65,25 @@ export function PhotoPanel({
         if (!response.ok) {
           throw new Error('Failed to add country to bucket list');
         }
-        onError();
+
         return response.json();
       })
       .then((data) => {
         console.log('Country added to bucket list', data);
+        onSuccess?.();
         onClose();
-        onSuccess();
       })
       .catch((error) => {
         console.error('Error adding country to bucket list:', error);
-        onError();
+        onError?.();
       });
   };
 
   return (
     <Modal
-      opened={!!location}
+      opened={opened}
       onClose={onClose}
-      zIndex={1003}
+      zIndex={1005}
       size={'auto'}
       styles={{
         header: {
@@ -83,7 +94,7 @@ export function PhotoPanel({
         },
       }}
     >
-      {photos.length === 0 ? (
+      {photos?.length === 0 ? (
         <Text p={16} c={theme.colors.gray[7]}>
           Sorry, we have no photos for this area, please try somewhere else
         </Text>
@@ -96,12 +107,12 @@ export function PhotoPanel({
                   Photos from {placeName ? ` ${placeName}` : ''},
                   {country ? ` ${country}` : ''}
                 </Text>
-                <Text>
-                  ({location.lat.toFixed(2)}, {location.lng.toFixed(2)})
+                <Text className={classes.coordinates}>
+                  ({location?.lat?.toFixed(2)}, {location?.lng?.toFixed(2)})
                 </Text>
               </Flex>
               <Box className={classes.topInfo}>
-                {!session?.user.id ? (
+                {!insideBucketList && !session?.user.id && (
                   <Tooltip
                     label={'You must be logged in to add to your bucket list'}
                   >
@@ -113,26 +124,25 @@ export function PhotoPanel({
                       />
                     </Box>
                   </Tooltip>
-                ) : (
+                )}
+                {!insideBucketList && session?.user.id && (
                   <Button
                     onClick={() =>
-                      handleAddToBucketList(country ?? '', placeName ?? '')
+                      handleAddToBucketList(
+                        country ?? '',
+                        placeName ?? '',
+                        location ?? null
+                      )
                     }
                     label={'Add to Bucket List'}
                   />
                 )}
-                {/* <Button
-                  label={'Add to Bucket List'}
-                  onClick={() =>
-                    handleAddToBucketList(country ?? '', placeName ?? '')
-                  }
-                /> */}
               </Box>
             </Flex>
           </Flex>
 
           <Box className={classes.grid} p={'lg'}>
-            {photos.map((photo) => {
+            {photos?.map((photo) => {
               return <PhotoCard key={photo.url} photo={photo} />;
             })}
           </Box>
@@ -140,4 +150,6 @@ export function PhotoPanel({
       )}
     </Modal>
   );
-}
+};
+
+export default PhotoPanel;

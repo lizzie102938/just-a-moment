@@ -1,3 +1,11 @@
+import { PhotoType, MealType } from '@/types';
+
+export type FetchResultsMap = {
+  photos: { photos: PhotoType[]; placeName: string; country: string };
+  food: { meals: MealType[]; country: string };
+  radio: { radioStations: any[]; country: string };
+};
+
 export const countryAdjectiveMapping: Record<string, string> = {
   Afghanistan: 'Afghan',
   Albania: 'Albanian',

@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { Alert, Text, useMantineTheme } from '@mantine/core';
+import { AlertType } from '@/types';
 import classes from './Toast.module.scss';
-import { AlertType } from '../../types';
 
 interface ToastProps {
   alert: AlertType | null;

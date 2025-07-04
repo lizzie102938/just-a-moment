@@ -1,12 +1,3 @@
-// .leftPanel {
-//   width: 20vw;
-//   background: url('/user-bg.jpg') top / cover no-repeat;
-//   box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.08);
-//   position: relative;
-//   min-height: '100vh';
-//   height: auto;
-// }
-
 .container {
   min-height: 100vh;
   height: auto;
@@ -15,7 +6,7 @@
 .rightPanel {
   width: 80vw;
   padding: 2rem;
-  // background-color: #f1f3f5; // gray[1]
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +15,7 @@
 .leftPanel {
   width: 20vw;
   background: url('/user-bg.jpg') top / cover no-repeat;
-  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.08);
+  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
   position: relative;
   min-height: 100vh;
   height: auto;

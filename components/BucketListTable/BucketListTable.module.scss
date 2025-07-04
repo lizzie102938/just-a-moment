@@ -33,7 +33,7 @@
 .bucketTable tbody tr {
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.13);
   transition:
     background-color 0.3s ease,
     box-shadow 0.3s ease;
@@ -56,31 +56,22 @@
   position: absolute;
 }
 
-// .leftPanel {
-//   width: 20vw;
-//   background: url('/desert.jpg') top / cover no-repeat;
-//   box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.08);
-//   position: relative;
-//   min-height: '100vh';
-//   height: auto;
-// }
-
 .leftPanel {
   width: 20vw;
   background: url('/desert.jpg') top / cover no-repeat;
-  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.08);
+  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
   position: relative;
-  min-height: 100vh; /* remove quotes here */
+  min-height: 100vh;
   height: auto;
-  overflow: hidden; /* just in case */
+  overflow: hidden;
 }
 
 .leftPanel::before {
   content: '';
   position: absolute;
-  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 */
-  background-color: rgba(255, 255, 255, 0.3); /* white with 30% opacity */
-  pointer-events: none; /* lets clicks pass through */
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -100,7 +91,7 @@
 .rightPanel {
   width: 80vw;
   padding: 2rem;
-  background-color: #f1f3f5; // gray[1]
+  background-color: #f1f3f5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,5 +107,5 @@
 }
 
 .pleaseLogin {
-  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.08);
+  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
 }

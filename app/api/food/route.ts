@@ -1,4 +1,4 @@
-import { countryAdjectiveMapping } from '../../../utils/countryAdjectiveMapping';
+import { countryAdjectiveMapping } from '@/utils/mapping';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {

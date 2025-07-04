@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
-import classes from './MealCard.module.scss';
-import { format } from 'date-fns';
-import {
-  Box,
-  useMantineTheme,
-  Text,
-  Badge as MantineBadge,
-} from '@mantine/core';
-import Recipe from '../Recipe/Recipe';
+'use client';
 
-import { MealType } from '../../types'; // Adjust the import path as necessary
+import React, { useState } from 'react';
+import { Box, useMantineTheme, Text } from '@mantine/core';
+import { Recipe } from '@/components';
+import { MealType } from '@/types';
+import classes from './MealCard.module.scss';
 
 type MealCardProps = {
   meal: MealType;
@@ -26,7 +21,6 @@ const MealCard = ({ meal }: MealCardProps) => {
         key={meal.strMealThumb + meal.strMeal}
         className={classes.card}
         w={200}
-        // bg={theme.colors.indigo[1]}
         bg={'white'}
         onClick={() => setRecipeCardOpen(true)}
       >

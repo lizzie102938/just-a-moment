@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import {
   Badge as MantineBadge,
@@ -7,6 +9,7 @@ import {
 } from '@mantine/core';
 import classes from './Badge.module.scss';
 import classNames from 'classnames';
+import { set } from 'date-fns';
 
 type BadgeProps = {
   label: string | React.ReactNode;
@@ -24,6 +27,7 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
       const input = (e.target as HTMLInputElement).value;
       if (onSearch) {
         onSearch(input);
+        setInputValue('');
       }
     }
   };
@@ -34,12 +38,9 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
       ta="center"
       mt={0}
       size={type === 'simple' ? 'lg' : 'md'}
-      // radius={type === 'simple' ? 'sm' : 'md'}
       radius={0}
       variant="light"
-      // bg={theme.colors.indigo[2]}
       bg={theme.colors.gray[7]}
-      // c={theme.colors.gray[6]}
       fz={12}
       c={'white'}
       fw={'bold'}
@@ -56,7 +57,7 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
             value={inputValue}
             onChange={(e) => setInputValue(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
-            placeholder="e.g. Paris or Eiffel Tower"
+            placeholder={'e.g. Paris or Eiffel Tower'}
           />
         )}
       </Group>
