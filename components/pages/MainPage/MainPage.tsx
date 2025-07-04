@@ -12,7 +12,7 @@ import {
   RadioPanel,
 } from '@/components';
 import { PhotoType, MealType, AlertType } from '@/types';
-// import { reverseGeocode } from '@/utils/ReverseGeocoder';
+
 import {
   fetchPhotosByCoords,
   fetchFoodByCoords,
@@ -43,71 +43,6 @@ export default function MainPage() {
   const [placeName, setPlaceName] = useState<string | null>(null);
   const [country, setCountry] = useState<string | null>(null);
 
-  // const fetchPhotosByCoords = async (lat: number, lng: number) => {
-  //   const placeObject = await reverseGeocode(lat, lng);
-  //   const country = placeObject.country;
-  //   const placeName = placeObject.placeName;
-
-  //   try {
-  //     const res = await fetch(`/api/photos?lat=${lat}&lng=${lng}`);
-  //     if (!res.ok) {
-  //       console.error('Failed to fetch photos', await res.text());
-  //       return { photos: [], placeName, country };
-  //     }
-  //     const data = await res.json();
-  //     return {
-  //       photos: data.photos,
-  //       placeName: placeName,
-  //       country: country,
-  //     };
-  //   } catch (err) {
-  //     console.error('Fetch error:', err);
-  //     return { photos: [], placeName, country };
-  //   }
-  // };
-
-  // const fetchFoodByCoords = async (lat: number, lng: number) => {
-  //   const placeObject = await reverseGeocode(lat, lng);
-  //   const country = placeObject.country;
-
-  //   try {
-  //     const res = await fetch(`/api/food?country=${country}`);
-  //     if (!res.ok) {
-  //       console.error('Failed to fetch food', await res.text());
-  //       return { meals: [], country: country };
-  //     }
-  //     const data = await res.json();
-  //     return {
-  //       meals: data.meals,
-  //       country,
-  //     };
-  //   } catch (err) {
-  //     console.error('Fetch error:', err);
-  //     return { meals: [], country };
-  //   }
-  // };
-
-  // const fetchRadioByCoords = async (lat: number, lng: number) => {
-  //   const placeObject = await reverseGeocode(lat, lng);
-  //   const country = placeObject.country;
-
-  //   try {
-  //     const res = await fetch(`/api/radio?country=${country}`);
-  //     if (!res.ok) {
-  //       console.error('Failed to fetch radio stations', await res.text());
-  //       return { radioStations: [], country: country };
-  //     }
-  //     const data = await res.json();
-  //     return {
-  //       radioStations: data,
-  //       country,
-  //     };
-  //   } catch (err) {
-  //     console.error('Fetch error:', err);
-  //     return { radioStations: [], country };
-  //   }
-  // };
-
   const handleMapClick = async (lat: number, lng: number) => {
     setIsLoading(true);
     setLocation({ lat, lng });
@@ -117,7 +52,6 @@ export default function MainPage() {
       setPhotos(result.photos);
       setPlaceName(result.placeName);
       setCountry(result.country);
-      // setLocation({ lat, lng });
       setPhotoPanelOpen(true);
     } else if (activeSwitch === 'food') {
       const { meals, country } = await fetchFoodByCoords(lat, lng);
@@ -136,46 +70,6 @@ export default function MainPage() {
     }
     setIsLoading(false);
   };
-
-  // const handleMapClick = async (lat: number, lng: number) => {
-  //   setIsLoading(true);
-  //   setLocation({ lat, lng });
-
-  //   try {
-  //     const result = await fetchByCoords(activeSwitch, lat, lng);
-
-  //     switch (activeSwitch) {
-  //       case 'photos':
-  //         setPhotos(result.photos ?? []);
-  //         setPlaceName(result.placeName ?? '');
-  //         setCountry(result.country ?? '');
-  //         setPhotoPanelOpen(true);
-  //         break;
-
-  //       case 'food':
-  //         setMeals(result.meals ?? []);
-  //         setCountry(result.country ?? '');
-  //         setFoodPanelOpen(true);
-  //         break;
-
-  //       case 'radio':
-  //         setRadioStations(result.radioStations ?? []);
-  //         setCountry(result.country ?? '');
-  //         setRadioPanelOpen(true);
-  //         break;
-
-  //       default:
-  //         setPhotos([]);
-  //         setPlaceName(null);
-  //         setCountry(null);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error in handleMapClick:', error);
-  //     // Optional: show error alert to user
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   const handleSearch = async (place: string) => {
     setIsLoading(true);
@@ -207,6 +101,9 @@ export default function MainPage() {
     setIsLoading(false);
   };
 
+  const successMessage = 'Added to bucket list successfully!';
+  const errorMessage = 'Failed to add to bucket list.';
+
   return (
     <Box className={classes.mainPageContainer}>
       <Box className={classes.topbarContainer}>
@@ -225,8 +122,8 @@ export default function MainPage() {
         !isLoading &&
         country !== null && (
           <PhotoPanel
-            onSuccess={() => showSuccess('Added to bucket list successfully!')}
-            onError={() => showError('Failed to add to bucket list.')}
+            onSuccess={() => showSuccess(successMessage)}
+            onError={() => showError(errorMessage)}
             photos={photos}
             location={location}
             opened={photoPanelOpen}
@@ -240,8 +137,8 @@ export default function MainPage() {
         !isLoading &&
         country !== null && (
           <FoodPanel
-            onSuccess={() => showSuccess('Added to bucket list successfully!')}
-            onError={() => showError('Failed to add to bucket list.')}
+            onSuccess={() => showSuccess(successMessage)}
+            onError={() => showError(errorMessage)}
             meals={meals}
             location={location}
             country={country}
@@ -254,8 +151,8 @@ export default function MainPage() {
         !isLoading &&
         country !== null && (
           <RadioPanel
-            onSuccess={() => showSuccess('Added to bucket list successfully!')}
-            onError={() => showError('Failed to add to bucket list.')}
+            onSuccess={() => showSuccess(successMessage)}
+            onError={() => showError(errorMessage)}
             radioStations={radioStations}
             country={country}
             location={location}

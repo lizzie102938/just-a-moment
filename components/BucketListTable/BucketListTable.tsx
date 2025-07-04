@@ -10,14 +10,13 @@ import {
   PhotoPanel,
   FoodPanel,
   RadioPanel,
+  Loader,
 } from '@/components';
 
 import classes from './BucketListTable.module.scss';
 import {
   AlertType,
   BucketListType,
-  MealType,
-  PhotoType,
   PhotoPanelInfoType,
   FoodPanelInfoType,
   RadioPanelInfoType,
@@ -44,6 +43,7 @@ const basePanelInitialInfo: PanelInfoType = {
 export default function BucketTable() {
   const theme = useMantineTheme();
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<AlertType | null>(null);
   const showSuccess = (message: string) =>
     setAlert({ type: 'success', message });
@@ -79,58 +79,54 @@ export default function BucketTable() {
     country: string,
     longitude: number,
     latitude: number,
-    place_name?: string,
-    photos?: PhotoType[],
-    meals?: MealType[]
+    place_name?: string
   ) => {
+    setIsLoading(true);
     if (!session?.user.id) return;
 
-    if (reason === 'Photos') {
-      if (typeof latitude === 'number' && typeof longitude === 'number') {
-        const fetchedPhotos = await fetchPhotosByCoords(latitude, longitude);
-        setPhotoPanelInfo({
-          opened: true,
-          country,
-          reason,
-          place_name,
-          longitude,
-          latitude,
-          photos: fetchedPhotos.photos,
-        });
-      } else {
-        showError('Missing coordinates for photo search');
-      }
-    } else if (reason === 'Food') {
-      if (typeof latitude === 'number' && typeof longitude === 'number') {
-        const fetchedMeals = await fetchFoodByCoords(latitude, longitude);
-        setFoodPanelInfo({
-          opened: true,
-          country,
-          reason,
-          longitude,
-          latitude,
-          meals: fetchedMeals.meals,
-        });
-      } else {
-        showError('Missing coordinates for food search');
-      }
-    } else if (reason === 'Radio') {
-      if (typeof latitude === 'number' && typeof longitude === 'number') {
-        const fetchedStations = await fetchRadioByCoords(latitude, longitude);
-        setRadioPanelInfo({
-          opened: true,
-          country,
-          reason,
-          longitude,
-          latitude,
-          radioStations: fetchedStations.radioStations,
-        });
-      } else {
-        showError('Missing coordinates for radio search');
-      }
-    } else {
-      showError('Unsupported reason for here click');
+    const coordsValid =
+      typeof latitude === 'number' && typeof longitude === 'number';
+    if (!coordsValid) {
+      showError('Missing coordinates for search');
+      return;
     }
+
+    const baseInfo = {
+      opened: true,
+      reason,
+      country,
+      longitude,
+      latitude,
+    };
+
+    try {
+      if (reason === 'Photos') {
+        const { photos } = await fetchPhotosByCoords(latitude, longitude);
+        setPhotoPanelInfo({
+          ...baseInfo,
+          place_name: place_name ?? '',
+          photos,
+        });
+      } else if (reason === 'Food') {
+        const { meals } = await fetchFoodByCoords(latitude, longitude);
+        setFoodPanelInfo({
+          ...baseInfo,
+          meals,
+        });
+      } else if (reason === 'Radio') {
+        const { radioStations } = await fetchRadioByCoords(latitude, longitude);
+        setRadioPanelInfo({
+          ...baseInfo,
+          radioStations,
+        });
+      } else {
+        showError('Unsupported reason for search');
+      }
+    } catch (error) {
+      showError('Failed to fetch data');
+      console.error(error);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -140,10 +136,11 @@ export default function BucketTable() {
         <Box className={classes.leftPanel}></Box>
 
         <Box className={classes.rightPanel}>
+          {isLoading && <Loader />}
           {alert && <Toast alert={alert} setAlert={setAlert} />}
           {session?.user.id ? (
             <>
-              <Flex ta={'center'} mt={'md'}>
+              <Flex ta={'center'} mt={'md'} className={classes.bucketImage}>
                 <img src="/bucket.svg" alt="Bucket Icon" height={70} />
               </Flex>
               <Table className={classes.bucketTable} mt="md">

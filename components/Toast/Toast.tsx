@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { Alert, Text, useMantineTheme } from '@mantine/core';
+import { Alert, Text } from '@mantine/core';
 import { AlertType } from '@/types';
 import classes from './Toast.module.scss';
 
@@ -11,8 +11,6 @@ interface ToastProps {
 }
 
 const Toast = ({ alert, setAlert }: ToastProps) => {
-  const theme = useMantineTheme();
-
   useEffect(() => {
     if (alert) {
       const timer = setTimeout(() => setAlert(null), 3000);
@@ -22,7 +20,7 @@ const Toast = ({ alert, setAlert }: ToastProps) => {
 
   return (
     <Alert
-      bg={alert?.type === 'success' ? theme.colors.gray[7] : 'red'}
+      bg={alert?.type === 'success' ? 'green' : 'red'}
       className={classes.toast}
       onClose={() => setAlert(null)}
     >

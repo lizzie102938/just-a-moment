@@ -1,7 +1,3 @@
-.bucket-list-page {
-  justify-content: center;
-}
-
 .bucketTable {
   width: 100%;
   border-collapse: separate;
@@ -11,6 +7,11 @@
   background-color: #e9ecef; /* gray[2] */
   box-shadow: 0 4px 14px rgba(54, 79, 199, 0.15); /* indigo[9] with opacity */
   font-family: 'Roboto', sans-serif;
+}
+
+.bucketImage {
+  display: block;
+  margin: 0 auto;
 }
 
 .bucketTable thead tr {
@@ -58,12 +59,14 @@
 
 .leftPanel {
   width: 20vw;
+  min-width: 20vw;
   background: url('/desert.jpg') top / cover no-repeat;
   box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
   position: relative;
   min-height: 100vh;
   height: auto;
   overflow: hidden;
+  flex: shrink;
 }
 
 .leftPanel::before {
@@ -76,8 +79,12 @@
 }
 
 .container {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: hidden;
   height: auto;
+  min-height: 100vh;
 }
 
 .backArrow {
@@ -89,12 +96,11 @@
 }
 
 .rightPanel {
-  width: 80vw;
   padding: 2rem;
-  background-color: #f1f3f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 .pleaseLoginContainer {

@@ -1,16 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Flex, Text, useMantineTheme, Box } from '@mantine/core';
 
-import { Form, BackArrow } from '@/components';
+import { Form, BackArrow, Toast } from '@/components';
 import classes from './Login.module.scss';
+import { AlertType } from '@/types';
 
 const Login = () => {
   const router = useRouter();
   const theme = useMantineTheme();
+
+  const showError = (message: string) => setAlert({ type: 'error', message });
+  const [alert, setAlert] = useState<AlertType | null>(null);
 
   const handleCreateUser = async (values: {
     email: string;
@@ -24,13 +28,28 @@ const Login = () => {
         },
         body: JSON.stringify(values),
       });
-      handleLogin(values);
 
+      // if (!res.ok) {
+      //   const error = await res.text();
+      //   throw new Error(error || 'Failed to create user');
+      // }
       if (!res.ok) {
-        const error = await res.text();
-        throw new Error(error || 'Failed to create user');
+        const err = await res.json();
+        // Check for Prisma P2002
+        if (
+          err.details?.code === 'P2002' &&
+          err.details?.meta?.target?.includes('email')
+        ) {
+          showError('Email is already in use.');
+        } else {
+          showError('Failed to create user. Please try again.');
+        }
+        return;
       }
 
+      if (res.ok) {
+        handleLogin(values);
+      }
       const user = await res.json();
       router.push('/main');
       console.log('User created:', user);
@@ -69,6 +88,7 @@ const Login = () => {
           </Flex>
         </Box>
       </Flex>
+      {alert && <Toast alert={alert} setAlert={setAlert} />}
     </Box>
   );
 };

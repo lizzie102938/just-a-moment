@@ -18,7 +18,7 @@ async function fetchFromRadioBrowser(endpoint: string) {
     try {
       const res = await fetch(`${base}/json/${endpoint}`, {
         headers: {
-          'User-Agent': 'mycoolapp/1.0',
+          'User-Agent': 'thediscoverypanel/1.0',
         },
       });
 
