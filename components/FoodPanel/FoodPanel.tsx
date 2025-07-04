@@ -94,14 +94,16 @@ const FoodPanel = ({
       ) : (
         <>
           <Flex gap={25} justify={'center'} pb={'lg'}>
-            <Flex direction={'column'}>
+            <Flex direction={'column'} className={classes.heading}>
               <Text className={classes.heading}>Dishes from {country}</Text>
               <Text>Click images for recipes</Text>
             </Flex>
             <Box className={classes.topInfo}>
               {!insideBucketList && !session?.user.id && (
                 <Tooltip
-                  label={'You must be logged in to add to your bucket list'}
+                  label={
+                    'You must be logged in to add to your bucket list. Please create user or login.'
+                  }
                 >
                   <Box>
                     <Button
