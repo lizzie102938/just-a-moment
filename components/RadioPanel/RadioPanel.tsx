@@ -38,6 +38,8 @@ const FoodPanel = ({
     }
 
     const userId = session?.user?.id;
+    const lat = location?.lat;
+    const lng = location?.lng;
 
     fetch('/api/bucket-list', {
       method: 'POST',
@@ -47,6 +49,8 @@ const FoodPanel = ({
       body: JSON.stringify({
         user_id: userId,
         country,
+        latitude: lat,
+        longitude: lng,
         reason: 'Radio',
       }),
     })
@@ -147,7 +151,7 @@ const FoodPanel = ({
                 >
                   <track
                     kind="captions"
-                    src={station.captionsUrl ?? ''}
+                    src={station.captionsUrl ?? null}
                     srcLang="en"
                     label="English captions"
                   />

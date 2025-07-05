@@ -14,7 +14,12 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
+    <html lang="en">
+      <head>
+        <link rel="preload" as="image" href="/user-bg.avif" />
+        <link rel="preload" as="image" href="/desert.avif" />
+        <link rel="preload" as="video" href="/disovery.mp4" />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

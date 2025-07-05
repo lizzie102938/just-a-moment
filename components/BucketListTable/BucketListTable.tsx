@@ -138,105 +138,113 @@ export default function BucketTable() {
         <Box className={classes.rightPanel}>
           {isLoading && <Loader />}
           {alert && <Toast alert={alert} setAlert={setAlert} />}
-          {session?.user.id ? (
-            <>
-              <Flex ta={'center'} mt={'md'} className={classes.bucketImage}>
-                <img src="/bucket.svg" alt="Bucket Icon" height={70} />
-              </Flex>
-              <Table className={classes.bucketTable} mt="md">
-                <thead>
-                  <tr>
-                    <th>Country</th>
-                    <th>Region</th>
-                    <th>Interest</th>
-                    <th>Revisit Search Results</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bucketList.map(
-                    ({
-                      country,
-                      reason,
-                      id,
-                      place_name,
-                      longitude,
-                      latitude,
-                    }) => (
-                      <tr key={`${country}-${id}`}>
-                        <td>{country}</td>
-                        <td>{place_name}</td>
-                        <td>{reason}</td>
-                        <td>
-                          {typeof longitude === 'number' &&
-                          typeof latitude === 'number' ? (
-                            <Button
-                              onClick={() =>
-                                handleHereClick(
-                                  reason,
-                                  country,
-                                  longitude,
-                                  latitude,
-                                  place_name
-                                )
-                              }
-                              label={'Here'}
-                            />
-                          ) : (
-                            <Text c={'gray'}></Text>
-                          )}
-                        </td>
-                        <Tooltip label={'Delete from Bucket List'}>
-                          <td>
-                            {
-                              <img
-                                src="/trash.svg"
-                                alt="Delete Icon"
-                                width={30}
-                                onClick={async () => {
-                                  const result = await deleteBucketListItem(id);
-                                  const error = result?.error;
-                                  if (result) {
-                                    setBucketList((prev) =>
-                                      prev.filter((item) => item.id !== id)
-                                    );
-                                    showSuccess(
-                                      `Deleted ${country} from bucket list`
-                                    );
-                                  }
-                                  if (error) {
-                                    showError(
-                                      'Failed to delete item from bucket list'
-                                    );
-                                  }
-                                }}
-                              />
+          <Flex ta={'center'} mt={'md'} className={classes.bucketImage}>
+            <img src="/bucket.svg" alt="Bucket Icon" height={70} />
+          </Flex>
+          {session?.user.id && bucketList.length > 0 && (
+            <Table className={classes.bucketTable} mt="md">
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Region</th>
+                  <th>Interest</th>
+                  <th>Revisit Search Results</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {bucketList.map(
+                  ({
+                    country,
+                    reason,
+                    id,
+                    place_name,
+                    longitude,
+                    latitude,
+                  }) => (
+                    <tr key={`${country}-${id}`}>
+                      <td>{country}</td>
+                      <td>{place_name}</td>
+                      <td>{reason}</td>
+                      <td>
+                        {typeof longitude === 'number' &&
+                        typeof latitude === 'number' ? (
+                          <Button
+                            onClick={() =>
+                              handleHereClick(
+                                reason,
+                                country,
+                                longitude,
+                                latitude,
+                                place_name
+                              )
                             }
-                          </td>
-                        </Tooltip>
-                      </tr>
-                    )
-                  )}
-                </tbody>
-              </Table>
-            </>
-          ) : (
-            <>
-              <Flex mt={'md'}>
-                <img src="/bucket.svg" alt="Bucket Icon" height={70} />
-              </Flex>
-              <Flex className={classes.pleaseLoginContainer}>
-                <Text
-                  c={'white'}
-                  fz={'22'}
-                  p={'xl'}
-                  bg={theme.colors.gray[7]}
-                  className={classes.pleaseLogin}
-                >
-                  Please log in to see your bucket list
-                </Text>
-              </Flex>
-            </>
+                            label={'Here'}
+                          />
+                        ) : (
+                          <Text c={'gray'}></Text>
+                        )}
+                      </td>
+                      <Tooltip label={'Delete from Bucket List'}>
+                        <td>
+                          {
+                            <img
+                              src="/trash.svg"
+                              alt="Delete Icon"
+                              width={30}
+                              onClick={async () => {
+                                const result = await deleteBucketListItem(id);
+                                const error = result?.error;
+                                if (result) {
+                                  setBucketList((prev) =>
+                                    prev.filter((item) => item.id !== id)
+                                  );
+                                  showSuccess(
+                                    `Deleted ${country} from bucket list`
+                                  );
+                                }
+                                if (error) {
+                                  showError(
+                                    'Failed to delete item from bucket list'
+                                  );
+                                }
+                              }}
+                            />
+                          }
+                        </td>
+                      </Tooltip>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </Table>
+          )}
+          {session?.user.id && bucketList.length === 0 && (
+            <Flex className={classes.pleaseLoginContainer}>
+              <Text
+                c={'white'}
+                fz={'22'}
+                p={'xl'}
+                bg={theme.colors.gray[7]}
+                className={classes.pleaseLogin}
+              >
+                You have nothing in your bucket list yet.
+              </Text>
+            </Flex>
+          )}
+
+          {!session?.user.id && (
+            <Flex className={classes.pleaseLoginContainer}>
+              <Text
+                c={'white'}
+                fz={'22'}
+                p={'xl'}
+                bg={theme.colors.gray[7]}
+                className={classes.pleaseLogin}
+              >
+                Please log in to see your bucket list
+              </Text>
+            </Flex>
           )}
           {photoPanelInfo.opened && (
             <PhotoPanel
