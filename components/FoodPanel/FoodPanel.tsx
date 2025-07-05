@@ -33,7 +33,6 @@ const FoodPanel = ({
 
   const handleAddToBucketList = (country: string) => {
     if (!session) {
-      console.log('User not logged in');
       return;
     }
 
@@ -62,12 +61,10 @@ const FoodPanel = ({
         return response.json();
       })
       .then((data) => {
-        console.log('Country added to bucket list', data);
         onSuccess?.();
         onClose();
       })
       .catch((error) => {
-        console.error('Error adding country to bucket list:', error);
         onError?.();
       });
   };

@@ -3,7 +3,6 @@ export async function reverseGeocode(
   lng: number
 ): Promise<{ placeName: string | null; country: string | null }> {
   const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
-  console.log('Reverse geocoding URL:', url);
 
   const response = await fetch(url, {
     headers: {
@@ -34,8 +33,6 @@ export async function reverseGeocode(
     null;
 
   const country = address.country ?? null;
-
-  console.log('ReverseGeocode result:', { placeName, country });
 
   return { placeName, country };
 }

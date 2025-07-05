@@ -40,8 +40,6 @@ export const fetchFoodByCoords = async (lat: number, lng: number) => {
     }
     const data = await res.json();
 
-    console.log('Food API response:', data);
-
     return {
       meals: data.meals,
       country,

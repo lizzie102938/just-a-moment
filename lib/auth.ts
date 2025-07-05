@@ -40,13 +40,10 @@ export const authOptions = {
           throw new Error('No user found with this email');
         }
 
-        console.log('Entered password:', credentials.password);
-        console.log('Stored hash:', user.password_hash);
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password_hash
         );
-        console.log('Password match:', isValid);
 
         // Verify password
         // const isValid = await bcrypt.compare(

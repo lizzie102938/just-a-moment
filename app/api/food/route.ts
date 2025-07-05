@@ -33,7 +33,6 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await response.json();
-    console.log(data, 'data');
 
     if (!data.meals) {
       return NextResponse.json(

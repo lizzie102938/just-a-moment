@@ -16,8 +16,6 @@ export async function GET() {
     },
   });
 
-  console.log('Bucket list items:', bucketlist_items);
-
   return NextResponse.json(bucketlist_items);
 }
 

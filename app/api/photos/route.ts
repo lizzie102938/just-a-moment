@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
 
   try {
     const { placeName, country } = await reverseGeocode(latitude, longitude);
-    console.log(`Location: ${placeName}, ${country}`);
 
     if (!placeName) {
       return NextResponse.json(

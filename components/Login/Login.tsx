@@ -52,7 +52,6 @@ const Login = () => {
       }
       const user = await res.json();
       router.push('/main');
-      console.log('User created:', user);
     } catch (err) {
       console.error('User creation failed:', err);
     }
