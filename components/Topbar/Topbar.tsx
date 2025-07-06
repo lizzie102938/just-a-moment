@@ -88,7 +88,7 @@ const Topbar = ({ onSearch, activeSwitch, setActiveSwitch }: TopbarProps) => {
           type={'input'}
           label={
             <span className={classes.hideOnMobile}>
-              Click somewhere on the map or type a location or landmark here:
+              Click somewhere on the map or type a location here:
             </span>
           }
           hasInput={true}
