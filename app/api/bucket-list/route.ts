@@ -38,6 +38,7 @@ export async function POST(req: Request) {
     return NextResponse.json(newEntry, { status: 201 });
   } catch (err) {
     console.error(err);
+    console.error('🔥 POST /api/bucket-list error:', err);
     return NextResponse.json(
       { error: 'Failed to add to bucket list' },
       { status: 500 }

@@ -44,6 +44,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ meals: data.meals, country });
   } catch (error) {
     console.error('Error fetching meals:', error);
+    console.error('🔥 POST /api/bucket-list error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
