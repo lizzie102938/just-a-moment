@@ -10,8 +10,8 @@ Explore the world from your browser. Users can click on the map or use the searc
 ## ✨ Overview
 
 The Discovery Panel is a **full-stack Next.js web app** which uses the following APIs:
-- Beautiful imagery (Unsplash API)
-- Local cuisines (TheMealDB API)          --> please note this API does lack certain countries. Examples of countries with data: France, United Kingdom, Italy.
+- Imagery (Unsplash API)
+- Recipes (TheMealDB API)                --> please note this API does lack certain countries. Examples of countries with data: France, United Kingdom, Italy.
 - Live radio stations (RadioBrowser API)
 
 It uses **Reverse Geocoding** to detect countries/regions based on map clicks or search terms, and allows users to **save places to a personal Bucket List**, powered by a PostgreSQL database via Prisma and Neon.
