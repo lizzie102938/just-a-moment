@@ -13,7 +13,7 @@ interface ToastProps {
 const Toast = ({ alert, setAlert }: ToastProps) => {
   useEffect(() => {
     if (alert) {
-      const timer = setTimeout(() => setAlert(null), 3000);
+      const timer = setTimeout(() => setAlert(null), 2000);
       return () => clearTimeout(timer);
     }
   }, [alert]);
