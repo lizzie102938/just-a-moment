@@ -9,7 +9,6 @@ import {
 } from '@mantine/core';
 import classes from './Badge.module.scss';
 import classNames from 'classnames';
-import { set } from 'date-fns';
 
 type BadgeProps = {
   label: string | React.ReactNode;
