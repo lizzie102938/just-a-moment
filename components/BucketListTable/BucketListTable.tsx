@@ -46,6 +46,8 @@ export default function BucketTable() {
   const theme = useMantineTheme();
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
   const [alert, setAlert] = useState<AlertType | null>(null);
   const showSuccess = (message: string) =>
     setAlert({ type: 'success', message });
@@ -71,6 +73,7 @@ export default function BucketTable() {
     const loadData = async () => {
       const data = await fetchBucketList();
       setBucketList(data);
+      setHasLoaded(true);
     };
 
     loadData();
@@ -140,18 +143,19 @@ export default function BucketTable() {
             src={'/desert.webp'}
             alt={'Desert background'}
             fill
+            sizes={'(max-width: 768px) 100vw, 50vw'}
             priority
             className={classes.image}
           />
         </Box>
-
+        {isLoading && <Loader />}
         <Box className={classes.rightPanel}>
-          {isLoading && <Loader />}
           {alert && <Toast alert={alert} setAlert={setAlert} />}
           <Flex ta={'center'} mt={'md'} className={classes.bucketImage}>
             <img src="/bucket.svg" alt="Bucket Icon" height={70} />
           </Flex>
-          {session?.user.id && bucketList.length > 0 && (
+          {/* {session?.user.id && bucketList.length > 0 && ( */}
+          {session?.user.id && hasLoaded && bucketList.length > 0 && (
             <Table className={classes.bucketTable} mt="md">
               <thead>
                 <tr>
@@ -229,7 +233,8 @@ export default function BucketTable() {
               </tbody>
             </Table>
           )}
-          {session?.user.id && bucketList.length === 0 && (
+          {/* {session?.user.id && bucketList.length === 0 && ( */}
+          {session?.user.id && hasLoaded && bucketList.length === 0 && (
             <Flex className={classes.pleaseLoginContainer}>
               <Text
                 c={'white'}

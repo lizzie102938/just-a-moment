@@ -47,7 +47,7 @@ const Login = () => {
       if (res.ok) {
         handleLogin(values);
       }
-      const user = await res.json();
+
       router.push('/main');
     } catch (err) {
       console.error('User creation failed:', err);
@@ -63,6 +63,7 @@ const Login = () => {
 
     if (res?.error) {
       console.error('Login error:', res.error);
+      showError('Invalid email or password. Please try again.');
     } else {
       window.location.href = '/main';
     }
@@ -78,6 +79,7 @@ const Login = () => {
             src={'/user-bg.webp'}
             alt={'user-bg'}
             fill
+            sizes={'(max-width: 768px) 100vw, 50vw'}
             className={classes.image}
             priority
           />
