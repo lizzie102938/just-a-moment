@@ -16,6 +16,7 @@ export default function Home() {
         loop
         muted
         playsInline
+        preload="auto"
         poster={'/discovery-holder-img.png'}
         className={classes.videoBackground}
       >
