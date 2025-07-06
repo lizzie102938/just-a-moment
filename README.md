@@ -76,10 +76,12 @@ npm install
 
 Create a .env.local file in the root with the following content:
 
+```bash
 DATABASE_URL=your_postgresql_connection_url
 NEXTAUTH_SECRET=your_random_secret
 NEXTAUTH_URL=http://localhost:3000
 UNSPLASH_API_KEY=your_unsplash_api_key
+```
 
 Generate Prisma client and migrate DB (optional if using existing Neon DB):
 
