@@ -30,6 +30,7 @@ import {
   fetchBucketList,
   deleteBucketListItem,
 } from '@/utils/fetchFunctions';
+import Link from 'next/link';
 
 const basePanelInitialInfo: PanelInfoType = {
   opened: false,
@@ -242,7 +243,9 @@ export default function BucketTable() {
                 bg={theme.colors.gray[7]}
                 className={classes.pleaseLogin}
               >
-                Please log in to see your bucket list
+                <Link href="/login" passHref className={classes.loginLink}>
+                  Please log in to see your bucket list
+                </Link>
               </Text>
             </Flex>
           )}
@@ -259,7 +262,7 @@ export default function BucketTable() {
                 lng: photoPanelInfo.longitude,
               }}
               photos={photoPanelInfo.photos}
-              insideBucketList={true}
+              //   insideBucketList={true}
             />
           )}
           {foodPanelInfo.opened && (
@@ -270,7 +273,10 @@ export default function BucketTable() {
               }
               country={foodPanelInfo.country}
               meals={foodPanelInfo.meals}
-              insideBucketList={true}
+              location={{
+                lat: photoPanelInfo.latitude,
+                lng: photoPanelInfo.longitude,
+              }}
             />
           )}
           {radioPanelInfo.opened && (
@@ -281,7 +287,10 @@ export default function BucketTable() {
               }
               country={radioPanelInfo.country}
               radioStations={radioPanelInfo.radioStations}
-              insideBucketList={true}
+              location={{
+                lat: photoPanelInfo.latitude,
+                lng: photoPanelInfo.longitude,
+              }}
             />
           )}
         </Box>

@@ -15,6 +15,7 @@ import Switch from './Switch/Switch';
 import Toast from './Toast/Toast';
 import Tooltip from './Tooltip/Tooltip';
 import Topbar from './Topbar/Topbar';
+import PanelTopInfo from './PanelTopInfo/PanelTopInfo';
 
 export {
   BackArrow,
@@ -34,4 +35,5 @@ export {
   Toast,
   Tooltip,
   Topbar,
+  PanelTopInfo,
 };

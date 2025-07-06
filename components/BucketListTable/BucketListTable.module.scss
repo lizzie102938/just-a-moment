@@ -109,9 +109,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 90;
 }
 
 .pleaseLogin {
   box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
+}
+
+.loginLink {
+  color: white;
 }

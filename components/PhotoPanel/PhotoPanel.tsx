@@ -1,7 +1,7 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { Button, Tooltip, PhotoCard } from '@/components';
+// import { useSession } from 'next-auth/react';
+import { PanelTopInfo, PhotoCard } from '@/components';
 import { Modal, Box, Flex, Text, useMantineTheme } from '@mantine/core';
 import { PhotoType } from '../../types';
 import classes from './PhotoPanel.module.scss';
@@ -12,7 +12,7 @@ type PhotoPanelProps = {
   readonly placeName?: string | null;
   readonly country?: string | null;
   readonly opened: boolean;
-  readonly insideBucketList?: boolean;
+  // readonly insideBucketList?: boolean;
   readonly onClose: () => void;
   readonly onSuccess?: () => void;
   readonly onError?: () => void;
@@ -24,58 +24,59 @@ const PhotoPanel = ({
   placeName,
   country,
   opened,
-  insideBucketList,
+  // insideBucketList,
   onClose,
   onSuccess,
   onError,
 }: PhotoPanelProps) => {
   const theme = useMantineTheme();
-  const { data: session } = useSession();
-  const handleAddToBucketList = (
-    country: string | null,
-    placeName: string | null,
-    location: { lat?: number; lng?: number } | null
-  ) => {
-    if (!country) {
-      ('No country provided');
-      return;
-    }
+  // const { data: session } = useSession();
 
-    const userId = session?.user.id;
+  // const handleAddToBucketList = (
+  //   country: string | null,
+  //   placeName: string | null,
+  //   location: { lat?: number; lng?: number } | null
+  // ) => {
+  //   if (!country) {
+  //     ('No country provided');
+  //     return;
+  //   }
 
-    const lat = location?.lat;
+  //   const userId = session?.user.id;
 
-    const lng = location?.lng;
+  //   const lat = location?.lat;
 
-    fetch('/api/bucket-list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: userId,
-        country,
-        latitude: lat,
-        longitude: lng,
-        place_name: placeName ?? '',
-        reason: 'Photos',
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to add country to bucket list');
-        }
+  //   const lng = location?.lng;
 
-        return response.json();
-      })
-      .then((data) => {
-        onSuccess?.();
-        onClose();
-      })
-      .catch((error) => {
-        onError?.();
-      });
-  };
+  //   fetch('/api/bucket-list', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       user_id: userId,
+  //       country,
+  //       latitude: lat,
+  //       longitude: lng,
+  //       place_name: placeName ?? '',
+  //       reason: 'Photos',
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Failed to add country to bucket list');
+  //       }
+
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       onSuccess?.();
+  //       onClose();
+  //     })
+  //     .catch((error) => {
+  //       onError?.();
+  //     });
+  // };
 
   return (
     <Modal
@@ -102,14 +103,14 @@ const PhotoPanel = ({
             <Flex gap={'lg'}>
               <Flex direction={'column'}>
                 <Text className={classes.heading}>
-                  Photos from {placeName ? ` ${placeName}` : ''},
+                  Photos from {placeName ? ` ${placeName},` : ''}
                   {country ? ` ${country}` : ''}
                 </Text>
                 <Text className={classes.coordinates}>
                   ({location?.lat?.toFixed(2)}, {location?.lng?.toFixed(2)})
                 </Text>
               </Flex>
-              <Box className={classes.topInfo}>
+              {/* <Box className={classes.topInfo}>
                 {!insideBucketList && !session?.user.id && (
                   <Tooltip
                     label={'You must be logged in to add to your bucket list'}
@@ -135,7 +136,16 @@ const PhotoPanel = ({
                     label={'Add to Bucket List'}
                   />
                 )}
-              </Box>
+              </Box> */}
+              <PanelTopInfo
+                reason={'Photos'}
+                country={country ?? ''}
+                placeName={placeName}
+                location={location}
+                onClose={onClose}
+                onSuccess={onSuccess}
+                onError={onError}
+              />
             </Flex>
           </Flex>
 

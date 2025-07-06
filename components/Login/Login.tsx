@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Flex, Text, useMantineTheme, Box } from '@mantine/core';
 
@@ -29,13 +30,9 @@ const Login = () => {
         body: JSON.stringify(values),
       });
 
-      // if (!res.ok) {
-      //   const error = await res.text();
-      //   throw new Error(error || 'Failed to create user');
-      // }
       if (!res.ok) {
         const err = await res.json();
-        // Check for Prisma P2002
+
         if (
           err.details?.code === 'P2002' &&
           err.details?.meta?.target?.includes('email')
@@ -76,12 +73,23 @@ const Login = () => {
       <BackArrow />
 
       <Flex className={classes.container}>
-        <Box className={classes.leftPanel}></Box>
+        {/* <Box className={classes.leftPanel}></Box> */}
+        <Box className={classes.leftPanel}>
+          <Image
+            src={'/user-bg.jpg'}
+            alt={'user-bg'}
+            // width={'20vw'}
+            fill
+            className={classes.image}
+            // prioritys
+            // style={{ width: '20vw', height: '100vh', objectFit: 'cover' }}
+          />
+        </Box>
         <Box className={classes.rightPanel}>
           <Flex direction={'column'} pt={40}>
             <Form onSubmit={handleCreateUser} title={'Create an account'} />
             <Text c={theme.colors.gray[7]} p={20} fw={800} ta={'center'}>
-              OR
+              OR, if you already have an account:
             </Text>
             <Form onSubmit={handleLogin} title={'Login'} />
           </Flex>
