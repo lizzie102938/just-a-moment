@@ -56,9 +56,7 @@ Or feel free to sign up and create your own account.
 <img width="1318" alt="Screenshot 2025-06-29 at 23 36 44" src="https://github.com/user-attachments/assets/ff81203d-f773-4b46-afe5-2488f9b27fd0" />
 <img width="1501" alt="Screenshot 2025-07-06 at 23 54 39" src="https://github.com/user-attachments/assets/df2221a1-3c92-44b5-8525-46809e77df32" />
 
-
-https://github.com/user-attachments/assets/2254dd75-3352-40b2-a093-98268c48504b
-
+https://github.com/user-attachments/assets/512ef6ff-f80a-4578-aa59-ef06adeadb67
 
 ---
 
