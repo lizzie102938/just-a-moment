@@ -137,11 +137,10 @@ export default function BucketTable() {
       <Flex className={classes.container}>
         <Box className={classes.leftPanel}>
           <Image
-            src="/desert.webp"
-            alt="Desert background"
+            src={'/desert.webp'}
+            alt={'Desert background'}
             fill
             priority
-            quality={80}
             className={classes.image}
           />
         </Box>
@@ -272,7 +271,6 @@ export default function BucketTable() {
                 lng: photoPanelInfo.longitude,
               }}
               photos={photoPanelInfo.photos}
-              //   insideBucketList={true}
             />
           )}
           {foodPanelInfo.opened && (

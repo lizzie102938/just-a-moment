@@ -13,7 +13,6 @@ const Button = ({ onClick, disabled, label }: ButtonProps) => {
   const theme = useMantineTheme();
   return (
     <MantineButton
-      //   bg={theme.colors.indigo[3]}
       className={classes.button}
       bg={theme.colors.gray[7]}
       radius={0}

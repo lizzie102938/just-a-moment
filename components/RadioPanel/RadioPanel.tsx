@@ -1,8 +1,7 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { Modal, Box, Flex, Text, useMantineTheme } from '@mantine/core';
-// import handleAddToBucketList from '@/utils/handleAddToBucketList';
+
 import { PanelTopInfo } from '@/components';
 
 import classes from './RadioPanel.module.scss';
@@ -11,7 +10,6 @@ interface FoodPanelProps {
   readonly country?: string | null;
   readonly opened: boolean;
   readonly radioStations: any[];
-  //   readonly insideBucketList?: boolean;
   readonly location: { lat?: number; lng?: number } | null;
   readonly onSuccess?: () => void;
   readonly onError?: () => void;
@@ -22,53 +20,13 @@ const FoodPanel = ({
   country,
   opened,
   radioStations,
-  //   insideBucketList,
+
   location,
   onSuccess,
   onError,
   onClose,
 }: FoodPanelProps) => {
   const theme = useMantineTheme();
-  //   const { data: session } = useSession();
-
-  //   const handleAddToBucketList = (country: string) => {
-  //     if (!session) {
-  //       return;
-  //     }
-
-  //     const userId = session?.user?.id;
-  //     const lat = location?.lat;
-  //     const lng = location?.lng;
-
-  //     fetch('/api/bucket-list', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         user_id: userId,
-  //         country,
-  //         latitude: lat,
-  //         longitude: lng,
-  //         reason: 'Radio',
-  //       }),
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           throw new Error('Failed to add country to bucket list');
-  //         }
-
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         onSuccess?.();
-  //         onClose();
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error adding country to bucket list:', error);
-  //         onError?.();
-  //       });
-  //   };
 
   return (
     <Modal
@@ -95,27 +53,6 @@ const FoodPanel = ({
           <Flex gap={25} justify={'center'} pb={'lg'}>
             <Text className={classes.heading}>Radio from {country}</Text>
 
-            {/* <Box className={classes.topInfo}>
-              {!insideBucketList && !session?.user.id && (
-                <Tooltip
-                  label={'You must be logged in to add to your bucket list'}
-                >
-                  <Box>
-                    <Button
-                      disabled
-                      onClick={() => ''}
-                      label={'Add to Bucket List'}
-                    />
-                  </Box>
-                </Tooltip>
-              )}
-              {!insideBucketList && session?.user.id && (
-                <Button
-                  onClick={() => handleAddToBucketList(country ?? '')}
-                  label={'Add to Bucket List'}
-                />
-              )}
-            </Box> */}
             <PanelTopInfo
               reason={'Photos'}
               country={country ?? ''}

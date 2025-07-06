@@ -31,7 +31,6 @@ export const authOptions = {
           throw new Error('Email and password required');
         }
 
-        // Find user by email
         const user = await prisma.users.findUnique({
           where: { email: credentials.email },
         });
@@ -45,26 +44,18 @@ export const authOptions = {
           user.password_hash
         );
 
-        // Verify password
-        // const isValid = await bcrypt.compare(
-        //   credentials.password,
-        //   user.password_hash
-        // );
         if (!isValid) {
           throw new Error('Invalid password');
         }
 
-        // Return user object (without password_hash)
         return {
           id: user.id.toString(),
           email: user.email,
-          // you can add more user info here if needed
         };
       },
     }),
   ],
 
-  // Add session and jwt config if needed
   session: {
     strategy: 'jwt' as SessionStrategy,
   },
@@ -81,7 +72,7 @@ export const authOptions = {
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token) {
         if (session.user) {
-          session.user.id = token.id as string; // token.id might be string|undefined
+          session.user.id = token.id as string;
           session.user.email = token.email as string;
         }
       }
@@ -89,8 +80,8 @@ export const authOptions = {
     },
   },
   pages: {
-    signIn: '/auth/login', // optional: your custom login page
+    signIn: '/auth/login',
   },
 
-  secret: process.env.NEXTAUTH_SECRET, // set this in your .env file
+  secret: process.env.NEXTAUTH_SECRET,
 };

@@ -12,16 +12,6 @@
   align-items: center;
 }
 
-// .leftPanel {
-//   width: 20vw;
-//   // background: url('/user-bg.avif') top / cover no-repeat;
-//   box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
-//   position: relative;
-//   min-height: 100vh;
-//   height: auto;
-//   overflow: hidden;
-// }
-
 .leftPanel {
   width: 20vw;
   position: relative;
@@ -34,11 +24,3 @@
   object-fit: cover;
   object-position: top;
 }
-
-// .leftPanel::before {
-//   content: '';
-//   position: absolute;
-//   inset: 0;
-//   background-color: rgba(255, 255, 255, 0.3);
-//   pointer-events: none;
-// }

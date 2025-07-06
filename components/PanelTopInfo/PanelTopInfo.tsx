@@ -1,13 +1,12 @@
 'use client';
 
 import React from 'react';
-// import { useRouter } from 'next/router';
+
 import { useRouter, usePathname } from 'next/navigation';
 
 import { useSession } from 'next-auth/react';
 import { Box, Flex } from '@mantine/core';
 import { Button, Tooltip } from '@/components';
-// import handleAddToBucketList from '@/utils/handleAddToBucketList';
 
 import classes from './PanelTopInfo.module.scss';
 import useAddToBucketList from '@/hooks/useHandleAddToBucketList';
