@@ -61,6 +61,7 @@ export async function DELETE(req: Request) {
     return NextResponse.json(deletedItem, { status: 200 });
   } catch (err) {
     console.error('DELETE error:', err);
+    console.error('🔥 POST /api/bucket-list error:', err);
     return NextResponse.json(
       { error: 'Failed to delete bucket list item' },
       { status: 500 }
