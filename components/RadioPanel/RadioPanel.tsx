@@ -54,7 +54,7 @@ const FoodPanel = ({
             <Text className={classes.heading}>Radio from {country}</Text>
 
             <PanelTopInfo
-              reason={'Photos'}
+              reason={'Radio'}
               country={country ?? ''}
               location={location}
               onClose={onClose}

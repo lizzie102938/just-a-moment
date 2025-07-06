@@ -55,7 +55,7 @@ const FoodPanel = ({
             </Flex>
 
             <PanelTopInfo
-              reason={'Photos'}
+              reason={'Food'}
               country={country ?? ''}
               location={location}
               onClose={onClose}
