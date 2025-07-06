@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Box, Flex, Table, Text, useMantineTheme } from '@mantine/core';
 import {
   Button,
@@ -134,7 +135,16 @@ export default function BucketTable() {
     <>
       <BackArrow />
       <Flex className={classes.container}>
-        <Box className={classes.leftPanel}></Box>
+        <Box className={classes.leftPanel}>
+          <Image
+            src="/desert.webp"
+            alt="Desert background"
+            fill
+            priority
+            quality={80}
+            className={classes.image}
+          />
+        </Box>
 
         <Box className={classes.rightPanel}>
           {isLoading && <Loader />}

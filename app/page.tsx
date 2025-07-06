@@ -16,10 +16,11 @@ export default function Home() {
         loop
         muted
         playsInline
+        poster={'/discovery-holder-img.png'}
         className={classes.videoBackground}
       >
-        <source src="/discovery.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src={'/discovery-compressed.mp4'} type={'video/mp4'} />
+        <source src={'/discovery-compressed.webm'} type={'video/webm'} />
       </video>
 
       <Flex

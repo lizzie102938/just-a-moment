@@ -58,24 +58,19 @@
 }
 
 .leftPanel {
+  position: relative;
   width: 20vw;
   min-width: 20vw;
-  background: url('/desert.avif') top / cover no-repeat;
-  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
-  position: relative;
   min-height: 100vh;
   height: auto;
   overflow: hidden;
-  flex: shrink;
+  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
+  flex-shrink: 1;
 }
 
-.leftPanel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  z-index: 1;
+.image {
+  object-fit: cover;
+  object-position: top;
 }
 
 .container {

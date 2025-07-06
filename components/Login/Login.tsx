@@ -73,16 +73,13 @@ const Login = () => {
       <BackArrow />
 
       <Flex className={classes.container}>
-        {/* <Box className={classes.leftPanel}></Box> */}
         <Box className={classes.leftPanel}>
           <Image
-            src={'/user-bg.jpg'}
+            src={'/user-bg.webp'}
             alt={'user-bg'}
-            // width={'20vw'}
             fill
             className={classes.image}
-            // prioritys
-            // style={{ width: '20vw', height: '100vh', objectFit: 'cover' }}
+            priority
           />
         </Box>
         <Box className={classes.rightPanel}>
