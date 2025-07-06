@@ -56,7 +56,7 @@ const Badge = ({ label, hasInput = false, onSearch, type }: BadgeProps) => {
             value={inputValue}
             onChange={(e) => setInputValue(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
-            placeholder={'e.g. Paris or Eiffel Tower'}
+            placeholder={'e.g. Paris'}
           />
         )}
       </Group>
