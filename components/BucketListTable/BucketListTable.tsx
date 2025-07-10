@@ -140,7 +140,7 @@ export default function BucketTable() {
       <Flex className={classes.container}>
         <Box className={classes.leftPanel}>
           <Image
-            src={'/desert.webp'}
+            src={'/desert2.jpg'}
             alt={'Desert background'}
             fill
             sizes={'(max-width: 768px) 100vw, 50vw'}
@@ -154,7 +154,6 @@ export default function BucketTable() {
           <Flex ta={'center'} mt={'md'} className={classes.bucketImage}>
             <img src="/bucket.svg" alt="Bucket Icon" height={70} />
           </Flex>
-          {/* {session?.user.id && bucketList.length > 0 && ( */}
           {session?.user.id && hasLoaded && bucketList.length > 0 && (
             <Table className={classes.bucketTable} mt="md">
               <thead>
