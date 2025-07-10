@@ -40,39 +40,33 @@ beforeAll(() => {
   });
 });
 
-test('Photo Panel renders with correct text if there are photos', () => {
+test('Food Panel renders with correct text if there are meals', () => {
   render(
     <SessionProvider>
       <MantineProvider>
         <FoodPanel
-          meals={[]}
-          opened={false}
-          location={null}
-          onClose={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          meals={[{ strMeal: 'Pizza', strMealThumb: 'pizza.jpg', idMeal: '1' }]}
+          opened={true}
+          location={{ lat: 0, lng: 0 }}
+          onClose={(): void => {}}
         />
       </MantineProvider>
     </SessionProvider>
   );
 
-  expect(screen.getByText(/Photos from/)).toBeInTheDocument();
+  expect(screen.getByText(/Dishes from/)).toBeInTheDocument();
 });
 
-test('Photo Panel renders with correct text if there are no photos', () => {
+test('Food Panel renders with correct text if there are no meals', () => {
   render(
     <SessionProvider>
       <MantineProvider>
-        {/* <PhotoPanel
-          placeName="Test Place"
-          country="Test Country"
-          photos={[]}
-          onClose={vi.fn()}
-          onSuccess={vi.fn()}
-          onError={vi.fn()}
-          location={{ lat: 0, lng: 0 }}
+        <FoodPanel
+          meals={[]}
           opened={true}
-        /> */}
+          location={{ lat: 0, lng: 0 }}
+          onClose={(): void => {}}
+        />
       </MantineProvider>
     </SessionProvider>
   );

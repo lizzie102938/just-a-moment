@@ -3,12 +3,6 @@ const nextConfig = {
   devIndicators: false,
   images: {
     formats: ['image/avif', 'image/webp'],
-    localPatterns: [
-      {
-        pathname: '/**',
-        search: '',
-      },
-    ],
   },
   webpack(config) {
     if (process.env.__NEXT_NEW_BUNDLER !== 'turbo') {
@@ -22,4 +16,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
