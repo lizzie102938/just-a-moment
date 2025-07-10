@@ -7,6 +7,8 @@ import Form from './Form/Form';
 import Loader from './Loader/Loader';
 import Login from './Login/Login';
 import MealCard from './MealCard/MealCard';
+import MainPage from './MainPage/MainPage';
+import Map from './Map/Map';
 import PhotoCard from './PhotoCard/PhotoCard';
 import PhotoPanel from './PhotoPanel/PhotoPanel';
 import RadioPanel from './RadioPanel/RadioPanel';
@@ -27,6 +29,8 @@ export {
   Loader,
   Login,
   MealCard,
+  MainPage,
+  Map,
   PhotoCard,
   PhotoPanel,
   RadioPanel,

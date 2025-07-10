@@ -16,7 +16,7 @@ type PhotoPanelProps = {
   readonly onError?: () => void;
 };
 
-const PhotoPanel = ({
+export default function PhotoPanel({
   photos,
   location,
   placeName,
@@ -25,7 +25,7 @@ const PhotoPanel = ({
   onClose,
   onSuccess,
   onError,
-}: PhotoPanelProps) => {
+}: PhotoPanelProps) {
   const theme = useMantineTheme();
 
   return (
@@ -81,6 +81,4 @@ const PhotoPanel = ({
       )}
     </Modal>
   );
-};
-
-export default PhotoPanel;
+}

@@ -20,8 +20,8 @@ export default function Home() {
         poster={'/discovery-holder-img.png'}
         className={classes.videoBackground}
       >
-        <source src={'/discovery-compressed.mp4'} type={'video/mp4'} />
-        <source src={'/discovery-compressed.webm'} type={'video/webm'} />
+        <source src={'/stepping.mp4'} type={'video/mp4'} />
+        {/* <source src={'/discovery-compressed.webm'} type={'video/webm'} /> */}
       </video>
 
       <Flex
@@ -31,7 +31,7 @@ export default function Home() {
         onClick={() => router.push('/main')}
       >
         <Flex c={'#bac8ff'} align={'center'} gap={15}>
-          <Text c={'#bac8ff'} fz={60}>
+          <Text c={'#bac8ff'} fz={55}>
             Welcome to The Discovery Panel
           </Text>
 
