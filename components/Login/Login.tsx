@@ -77,11 +77,13 @@ const Login = () => {
         <Box className={classes.leftPanel}>
           <Image
             src={'/user-2-compressed.webp'}
-            alt={'user-bg'}
+            alt={''}
             fill
             sizes={'(max-width: 768px) 100vw, 50vw'}
             className={classes.image}
             priority
+            loading="eager"
+            blurDataURL="/user-2-compressed.webp"
           />
         </Box>
         <Box className={classes.rightPanel}>

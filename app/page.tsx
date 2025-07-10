@@ -12,6 +12,7 @@ export default function Home() {
   return (
     <Box className={classes.videoBackgroundContainer}>
       <video
+        data-testid="home-video"
         autoPlay
         loop
         muted
@@ -36,7 +37,8 @@ export default function Home() {
 
           <img
             src="/arrow.svg"
-            alt="Arrow Icon"
+            alt="Arrow Icon Home"
+            data-testid="Arrow Icon Home"
             height={50}
             className={classes.arrow}
           />

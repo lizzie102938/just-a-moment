@@ -2,7 +2,13 @@
 const nextConfig = {
   devIndicators: false,
   images: {
-    formats: ['image/avif', 'image/webp'], // allow modern formats
+    formats: ['image/avif', 'image/webp'],
+    localPatterns: [
+      {
+        pathname: '/**',
+        search: '',
+      },
+    ],
   },
   webpack(config) {
     if (process.env.__NEXT_NEW_BUNDLER !== 'turbo') {

@@ -141,11 +141,13 @@ export default function BucketTable() {
         <Box className={classes.leftPanel}>
           <Image
             src={'/desert-compressed.webp'}
-            alt={'Desert background'}
+            alt={''}
             fill
             sizes={'(max-width: 768px) 100vw, 50vw'}
             priority
             className={classes.image}
+            loading="eager"
+            blurDataURL="/desert-compressed.webp"
           />
         </Box>
         {isLoading && <Loader />}
