@@ -17,11 +17,10 @@ export default function Home() {
         muted
         playsInline
         preload="auto"
-        poster={'/discovery-holder-img.png'}
+        poster={'/discovery-2-holder.png'}
         className={classes.videoBackground}
       >
-        <source src={'/stepping.mp4'} type={'video/mp4'} />
-        {/* <source src={'/discovery-compressed.webm'} type={'video/webm'} /> */}
+        <source src={'/discovery-2-compressed.mp4'} type={'video/mp4'} />
       </video>
 
       <Flex

@@ -140,7 +140,7 @@ export default function BucketTable() {
       <Flex className={classes.container}>
         <Box className={classes.leftPanel}>
           <Image
-            src={'/desert2.jpg'}
+            src={'/desert-compressed.webp'}
             alt={'Desert background'}
             fill
             sizes={'(max-width: 768px) 100vw, 50vw'}

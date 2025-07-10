@@ -13,7 +13,8 @@
 }
 
 .leftPanel {
-  width: 20vw;
+  width: 25vw;
+  min-width: 25vw;
   position: relative;
   min-height: 100vh;
   box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);

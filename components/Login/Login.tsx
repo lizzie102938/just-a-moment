@@ -76,7 +76,7 @@ const Login = () => {
       <Flex className={classes.container}>
         <Box className={classes.leftPanel}>
           <Image
-            src={'/user-bg.webp'}
+            src={'/user-2-compressed.webp'}
             alt={'user-bg'}
             fill
             sizes={'(max-width: 768px) 100vw, 50vw'}
