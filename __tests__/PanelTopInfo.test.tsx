@@ -5,6 +5,8 @@ import { MantineProvider } from '@mantine/core';
 import { PanelTopInfo } from '@/components';
 import { SessionProvider } from 'next-auth/react';
 
+// TO DO: Refactor with test-utils
+
 let mockSessionData: any = null;
 let mockSessionStatus: 'authenticated' | 'unauthenticated' | 'loading' =
   'unauthenticated';

@@ -5,6 +5,8 @@ import { MantineProvider } from '@mantine/core';
 import { PhotoPanel } from '@/components';
 import { SessionProvider } from 'next-auth/react';
 
+// TO DO: Refactor with test-utils
+
 const mockPush = vi.fn();
 
 vi.mock('next/navigation', () => ({

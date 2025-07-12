@@ -4,6 +4,8 @@ import { MantineProvider } from '@mantine/core';
 
 import Home from '../app/page';
 
+// TO DO: Refactor with test-utils
+
 const mockPush = vi.fn();
 
 vi.mock('next/navigation', () => ({
