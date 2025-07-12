@@ -71,7 +71,7 @@ const Login = () => {
 
   return (
     <Box w={'100vw'}>
-      <BackArrow />
+      <BackArrow isLoginPage />
 
       <Flex className={classes.container}>
         <Box className={classes.leftPanel}>

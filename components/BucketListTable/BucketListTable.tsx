@@ -42,7 +42,7 @@ const basePanelInitialInfo: PanelInfoType = {
   latitude: 0,
 };
 
-export default function BucketTable() {
+export default function BucketListTable() {
   const theme = useMantineTheme();
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
@@ -234,7 +234,7 @@ export default function BucketTable() {
               </tbody>
             </Table>
           )}
-          {/* {session?.user.id && bucketList.length === 0 && ( */}
+
           {session?.user.id && hasLoaded && bucketList.length === 0 && (
             <Flex className={classes.pleaseLoginContainer}>
               <Text

@@ -7,7 +7,11 @@ import { Tooltip } from '@/components';
 
 import classes from './BackArrow.module.scss';
 
-const BackArrow = () => {
+interface BackArrowProps {
+  isLoginPage?: boolean;
+}
+
+const BackArrow = ({ isLoginPage }: BackArrowProps) => {
   const router = useRouter();
   return (
     <Box>
@@ -18,6 +22,7 @@ const BackArrow = () => {
           height={40}
           className={classes.backArrow}
           onClick={() => router.back()}
+          data-testid={`Arrow Icon ${isLoginPage ? 'Login' : 'Bucket'}`}
         />
       </Tooltip>
     </Box>

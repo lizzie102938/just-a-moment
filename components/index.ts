@@ -1,6 +1,6 @@
 import BackArrow from './BackArrow/BackArrow';
 import Badge from './Badge/Badge';
-import BucketTable from './BucketListTable/BucketListTable';
+import BucketListTable from './BucketListTable/BucketListTable';
 import Button from './Button/Button';
 import FoodPanel from './FoodPanel/FoodPanel';
 import Form from './Form/Form';
@@ -22,7 +22,7 @@ import PanelTopInfo from './PanelTopInfo/PanelTopInfo';
 export {
   BackArrow,
   Badge,
-  BucketTable,
+  BucketListTable,
   Button,
   FoodPanel,
   Form,
