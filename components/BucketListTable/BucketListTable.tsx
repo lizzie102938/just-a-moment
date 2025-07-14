@@ -147,7 +147,6 @@ export default function BucketListTable() {
             priority
             className={classes.image}
             loading="eager"
-            blurDataURL="/desert-compressed.webp"
           />
         </Box>
         {isLoading && <Loader />}

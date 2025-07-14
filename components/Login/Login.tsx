@@ -83,7 +83,6 @@ const Login = () => {
             className={classes.image}
             priority
             loading="eager"
-            blurDataURL="/user-2-compressed.webp"
           />
         </Box>
         <Box className={classes.rightPanel}>

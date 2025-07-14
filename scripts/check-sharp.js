@@ -1,4 +1,3 @@
-// check-sharp.js
 try {
   require('next/dist/compiled/sharp');
   console.log('✅ Sharp is available to Next.js');
