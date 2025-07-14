@@ -74,17 +74,7 @@ const Login = () => {
       <BackArrow isLoginPage />
 
       <Flex className={classes.container}>
-        <Box className={classes.leftPanel}>
-          <Image
-            src={'/user-2-compressed.webp'}
-            alt={''}
-            fill
-            sizes={'(max-width: 768px) 100vw, 50vw'}
-            className={classes.image}
-            priority
-            loading="eager"
-          />
-        </Box>
+        <Box className={classes.leftPanel}></Box>
         <Box className={classes.rightPanel}>
           <Flex direction={'column'} pt={40}>
             <Form onSubmit={handleCreateUser} title={'Create an account'} />

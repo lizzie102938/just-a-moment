@@ -64,8 +64,9 @@
   min-height: 100vh;
   height: auto;
   overflow: hidden;
-  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.13);
+  box-shadow: 3px 0 8ch rgba(0, 0, 0, 0.5);
   flex-shrink: 1;
+  background-color: #cf7670;
 }
 
 .image {

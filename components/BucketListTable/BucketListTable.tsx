@@ -138,17 +138,7 @@ export default function BucketListTable() {
     <>
       <BackArrow />
       <Flex className={classes.container}>
-        <Box className={classes.leftPanel}>
-          <Image
-            src={'/desert-compressed.webp'}
-            alt={''}
-            fill
-            sizes={'(max-width: 768px) 100vw, 50vw'}
-            priority
-            className={classes.image}
-            loading="eager"
-          />
-        </Box>
+        <Box className={classes.leftPanel}></Box>
         {isLoading && <Loader />}
         <Box className={classes.rightPanel}>
           {alert && <Toast alert={alert} setAlert={setAlert} />}
