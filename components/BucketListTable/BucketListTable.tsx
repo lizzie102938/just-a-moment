@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Flex, Table, Text, useMantineTheme } from '@mantine/core';
 import {
   Button,
@@ -134,6 +133,62 @@ export default function BucketListTable() {
     setIsLoading(false);
   };
 
+  const renderedRows = useMemo(
+    () =>
+      bucketList.map(
+        ({ country, reason, id, place_name, longitude, latitude }) => (
+          <tr key={`${country}-${id}`}>
+            <td>{country}</td>
+            <td>{place_name}</td>
+            <td>{reason}</td>
+            <td>
+              {typeof longitude === 'number' && typeof latitude === 'number' ? (
+                <Button
+                  onClick={() =>
+                    handleHereClick(
+                      reason,
+                      country,
+                      longitude,
+                      latitude,
+                      place_name
+                    )
+                  }
+                  label={'Here'}
+                />
+              ) : (
+                <Text c={'gray'}></Text>
+              )}
+            </td>
+            <Tooltip label={'Delete from Bucket List'}>
+              <td>
+                {
+                  <img
+                    src="/trash.svg"
+                    alt="Delete Icon"
+                    width={30}
+                    onClick={async () => {
+                      const result = await deleteBucketListItem(id);
+                      const error = result?.error;
+                      if (result) {
+                        setBucketList((prev) =>
+                          prev.filter((item) => item.id !== id)
+                        );
+                        showSuccess(`Deleted ${country} from bucket list`);
+                      }
+                      if (error) {
+                        showError('Failed to delete item from bucket list');
+                      }
+                    }}
+                  />
+                }
+              </td>
+            </Tooltip>
+          </tr>
+        )
+      ),
+    [bucketList]
+  );
+
   return (
     <>
       <BackArrow />
@@ -156,71 +211,7 @@ export default function BucketListTable() {
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                {bucketList.map(
-                  ({
-                    country,
-                    reason,
-                    id,
-                    place_name,
-                    longitude,
-                    latitude,
-                  }) => (
-                    <tr key={`${country}-${id}`}>
-                      <td>{country}</td>
-                      <td>{place_name}</td>
-                      <td>{reason}</td>
-                      <td>
-                        {typeof longitude === 'number' &&
-                        typeof latitude === 'number' ? (
-                          <Button
-                            onClick={() =>
-                              handleHereClick(
-                                reason,
-                                country,
-                                longitude,
-                                latitude,
-                                place_name
-                              )
-                            }
-                            label={'Here'}
-                          />
-                        ) : (
-                          <Text c={'gray'}></Text>
-                        )}
-                      </td>
-                      <Tooltip label={'Delete from Bucket List'}>
-                        <td>
-                          {
-                            <img
-                              src="/trash.svg"
-                              alt="Delete Icon"
-                              width={30}
-                              onClick={async () => {
-                                const result = await deleteBucketListItem(id);
-                                const error = result?.error;
-                                if (result) {
-                                  setBucketList((prev) =>
-                                    prev.filter((item) => item.id !== id)
-                                  );
-                                  showSuccess(
-                                    `Deleted ${country} from bucket list`
-                                  );
-                                }
-                                if (error) {
-                                  showError(
-                                    'Failed to delete item from bucket list'
-                                  );
-                                }
-                              }}
-                            />
-                          }
-                        </td>
-                      </Tooltip>
-                    </tr>
-                  )
-                )}
-              </tbody>
+              <tbody>{renderedRows}</tbody>
             </Table>
           )}
 
